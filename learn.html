@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Learn Cyber Security | SecureSphere</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #020617 0%, #0c1838 100%);
+      color: #e5e7eb;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 60px;
+      background: rgba(2, 6, 23, 0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(34, 211, 238, 0.2);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-family: 'Orbitron', sans-serif;
+      color: #22d3ee;
+      font-size: 28px;
+      font-weight: 600;
+      text-shadow: 0 0 20px rgba(34, 211, 238, 0.5);
+    }
+
+    nav a {
+      color: #94a3b8;
+      margin-left: 30px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    nav a:hover {
+      color: #22d3ee;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #22d3ee;
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Page Header */
+    .page-header {
+      padding: 80px 60px 40px;
+      text-align: center;
+    }
+
+    .page-header h1 {
+      font-size: 48px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #22d3ee 0%, #3b82f6 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 15px;
+    }
+
+    .page-header p {
+      color: #94a3b8;
+      font-size: 18px;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Progress Overview */
+    .progress-overview {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 60px;
+    }
+
+    .progress-card {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.6) 100%);
+      padding: 30px;
+      border-radius: 16px;
+      border: 1px solid rgba(34, 211, 238, 0.3);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 36px;
+      font-weight: 700;
+      color: #22d3ee;
+      display: block;
+    }
+
+    .stat-label {
+      color: #94a3b8;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    /* Learning Grid */
+    .learn-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      padding: 40px 60px 80px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .learn-card {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.6) 100%);
+      padding: 30px;
+      border-radius: 16px;
+      border: 1px solid rgba(34, 211, 238, 0.3);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .learn-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(34, 211, 238, 0.1) 0%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .learn-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(34, 211, 238, 0.6);
+      box-shadow: 0 10px 40px rgba(34, 211, 238, 0.2);
+    }
+
+    .learn-card:hover::before {
+      opacity: 1;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 15px;
+    }
+
+    .learn-icon {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+
+    .learn-card h3 {
+      font-size: 22px;
+      color: #22d3ee;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .module-meta {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .badge.level {
+      background: rgba(34, 211, 238, 0.2);
+      color: #22d3ee;
+      border: 1px solid rgba(34, 211, 238, 0.3);
+    }
+
+    .badge.duration {
+      background: rgba(148, 163, 184, 0.2);
+      color: #94a3b8;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+    }
+
+    .badge.completed {
+      background: rgba(34, 197, 94, 0.2);
+      color: #22c55e;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+
+    .learn-card p {
+      color: #94a3b8;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      font-size: 15px;
+    }
+
+    .start-btn {
+      width: 100%;
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #22d3ee 0%, #3b82f6 100%);
+      border: none;
+      border-radius: 8px;
+      color: #020617;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .start-btn:hover {
+      transform: scale(1.02);
+      box-shadow: 0 5px 20px rgba(34, 211, 238, 0.4);
+    }
+
+    /* Learning Module Modal */
+    .module-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(2, 6, 23, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      overflow-y: auto;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .module-modal.active {
+      display: block;
+    }
+
+    .modal-content {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 40px;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.9) 100%);
+      border-radius: 20px;
+      border: 1px solid rgba(34, 211, 238, 0.3);
+      position: relative;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #ef4444;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 24px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .close-modal:hover {
+      background: rgba(239, 68, 68, 0.3);
+      transform: rotate(90deg);
+    }
+
+    .modal-header {
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(34, 211, 238, 0.2);
+    }
+
+    .modal-header h2 {
+      font-size: 32px;
+      color: #22d3ee;
+      margin-bottom: 10px;
+    }
+
+    .content-section {
+      margin-bottom: 30px;
+    }
+
+    .content-section h4 {
+      color: #22d3ee;
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    .content-section p {
+      color: #e5e7eb;
+      line-height: 1.8;
+      margin-bottom: 15px;
+    }
+
+    .content-section ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .content-section li {
+      color: #94a3b8;
+      padding: 10px 0;
+      padding-left: 30px;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    .content-section li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: #22d3ee;
+      font-weight: bold;
+    }
+
+    /* Quiz Section */
+    .quiz-section {
+      background: rgba(2, 6, 23, 0.6);
+      padding: 25px;
+      border-radius: 12px;
+      border: 1px solid rgba(34, 211, 238, 0.2);
+      margin-top: 30px;
+    }
+
+    .quiz-section h4 {
+      color: #22d3ee;
+      margin-bottom: 20px;
+    }
+
+    .quiz-question {
+      margin-bottom: 20px;
+    }
+
+    .quiz-question label {
+      color: #e5e7eb;
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .quiz-question input {
+      width: 100%;
+      padding: 12px 16px;
+      background: rgba(2, 6, 23, 0.6);
+      border: 1px solid rgba(34, 211, 238, 0.4);
+      border-radius: 8px;
+      color: #e5e7eb;
+      font-size: 15px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .quiz-question input:focus {
+      outline: none;
+      border-color: #22d3ee;
+      box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.1);
+    }
+
+    .quiz-result {
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 8px;
+      display: none;
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .quiz-result.show {
+      display: block;
+    }
+
+    .quiz-result.passed {
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: #22c55e;
+    }
+
+    .quiz-result.failed {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #ef4444;
+    }
+
+    .action-btn {
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #22d3ee 0%, #3b82f6 100%);
+      border: none;
+      border-radius: 8px;
+      color: #020617;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-right: 10px;
+      margin-top: 10px;
+    }
+
+    .action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(34, 211, 238, 0.3);
+    }
+
+    .action-btn.secondary {
+      background: rgba(148, 163, 184, 0.2);
+      color: #94a3b8;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+    }
+
+    /* Certificate Modal */
+    .certificate-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(2, 6, 23, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1001;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .certificate-modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .certificate-content {
+      background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+      padding: 60px;
+      border-radius: 20px;
+      border: 8px solid #22d3ee;
+      max-width: 700px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(34, 211, 238, 0.3);
+    }
+
+    .certificate-content h2 {
+      color: #020617;
+      font-size: 36px;
+      margin-bottom: 20px;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .certificate-content .cert-name {
+      color: #22d3ee;
+      font-size: 28px;
+      font-weight: 700;
+      margin: 20px 0;
+    }
+
+    .certificate-content p {
+      color: #334155;
+      font-size: 16px;
+      line-height: 1.8;
+      margin: 10px 0;
+    }
+
+    .cert-id {
+      font-size: 12px;
+      color: #64748b;
+      margin-top: 30px;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 30px;
+      background: rgba(18, 24, 41, 0.8);
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    /* Loading State */
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #22d3ee;
+    }
+
+    .spinner {
+      border: 3px solid rgba(34, 211, 238, 0.3);
+      border-top: 3px solid #22d3ee;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="logo">SecureSphere</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="learn.html">Learn</a>
+      <a href="services.html">Services</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="lab.html">Labs</a>
+      <a href="game.html">Games</a>
+    </nav>
+  </header>
+
+  <!-- PAGE HEADER -->
+  <section class="page-header">
+    <h1>📚 Learn Cyber Security</h1>
+    <p>
+      Master cybersecurity through structured, interactive learning modules.
+      From basics to advanced concepts, build your skills with hands-on content and assessments.
+    </p>
+  </section>
+
+  <!-- PROGRESS OVERVIEW -->
+  <section class="progress-overview">
+    <div class="progress-card">
+      <div class="stat">
+        <span class="stat-value" id="completedModules">0</span>
+        <span class="stat-label">Modules Completed</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value" id="totalModules">6</span>
+        <span class="stat-label">Total Modules</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value" id="progressPercent">0%</span>
+        <span class="stat-label">Overall Progress</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEARNING CONTENT -->
+  <section class="learn-grid">
+
+    <div class="learn-card" data-module="basics">
+      <div class="learn-icon">🎓</div>
+      <h3>Cyber Security Basics</h3>
+      <div class="module-meta">
+        <span class="badge level">Beginner</span>
+        <span class="badge duration">⏱ 30 mins</span>
+      </div>
+      <p>Understand what cyber security is, why it matters, and how digital threats impact individuals and
+        organizations.</p>
+      <button class="start-btn" onclick="startModule('basics')">Start Learning →</button>
+    </div>
+
+    <div class="learn-card" data-module="attacks">
+      <div class="learn-icon">⚔️</div>
+      <h3>Cyber Attacks & Threats</h3>
+      <div class="module-meta">
+        <span class="badge level">Beginner - Intermediate</span>
+        <span class="badge duration">⏱ 45 mins</span>
+      </div>
+      <p>Learn about phishing, malware, ransomware, and social engineering attacks with real-world examples.</p>
+      <button class="start-btn" onclick="startModule('attacks')">Start Learning →</button>
+    </div>
+
+    <div class="learn-card" data-module="iam">
+      <div class="learn-icon">🔐</div>
+      <h3>Identity & Access Management</h3>
+      <div class="module-meta">
+        <span class="badge level">Intermediate</span>
+        <span class="badge duration">⏱ 40 mins</span>
+      </div>
+      <p>Explore authentication, authorization, RBAC, and the principle of least privilege.</p>
+      <button class="start-btn" onclick="startModule('iam')">Start Learning →</button>
+    </div>
+
+    <div class="learn-card" data-module="webapp">
+      <div class="learn-icon">🌐</div>
+      <h3>Web Application Security</h3>
+      <div class="module-meta">
+        <span class="badge level">Intermediate</span>
+        <span class="badge duration">⏱ 50 mins</span>
+      </div>
+      <p>Understand SQL Injection, XSS, insecure authentication, and secure coding practices.</p>
+      <button class="start-btn" onclick="startModule('webapp')">Start Learning →</button>
+    </div>
+
+    <div class="learn-card" data-module="encryption">
+      <div class="learn-icon">🔒</div>
+      <h3>Data Protection & Encryption</h3>
+      <div class="module-meta">
+        <span class="badge level">Intermediate</span>
+        <span class="badge duration">⏱ 45 mins</span>
+      </div>
+      <p>Learn how encryption, hashing, and secure data storage protect sensitive information.</p>
+      <button class="start-btn" onclick="startModule('encryption')">Start Learning →</button>
+    </div>
+
+    <div class="learn-card" data-module="awareness">
+      <div class="learn-icon">🛡️</div>
+      <h3>Cyber Awareness & Best Practices</h3>
+      <div class="module-meta">
+        <span class="badge level">All Levels</span>
+        <span class="badge duration">⏱ 35 mins</span>
+      </div>
+      <p>Build habits that reduce cyber risk, including password hygiene and phishing detection.</p>
+      <button class="start-btn" onclick="startModule('awareness')">Start Learning →</button>
+    </div>
+
+  </section>
+
+  <!-- MODULE MODAL -->
+  <div id="moduleModal" class="module-modal">
+    <div class="modal-content">
+      <button class="close-modal" onclick="closeModule()">×</button>
+      <div class="modal-header">
+        <h2 id="moduleTitle">Loading...</h2>
+        <p id="moduleLevel"></p>
+      </div>
+
+      <div id="moduleContent" class="loading">
+        <div class="spinner"></div>
+        <p>Loading module content...</p>
+      </div>
+
+      <div class="quiz-section" id="quizSection" style="display: none;">
+        <h4>📝 Knowledge Check</h4>
+        <p style="color: #94a3b8; margin-bottom: 20px;">Answer these questions to complete the module (70% required to
+          pass)</p>
+        <div id="quizQuestions"></div>
+        <button class="action-btn" onclick="submitQuiz()">Submit Quiz</button>
+        <button class="action-btn secondary" onclick="closeModule()">Close</button>
+        <div id="quizResult" class="quiz-result"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CERTIFICATE MODAL -->
+  <div id="certificateModal" class="certificate-modal">
+    <div class="certificate-content">
+      <h2>🏆 Certificate of Completion</h2>
+      <p>This certifies that</p>
+      <div class="cert-name" id="certName">Student Name</div>
+      <p>has successfully completed the module</p>
+      <div class="cert-name" id="certModule" style="font-size: 22px;">Module Title</div>
+      <p id="certDate" style="margin-top: 20px;">Date: </p>
+      <p class="cert-id" id="certId">Certificate ID: </p>
+      <button class="action-btn" onclick="closeCertificate()" style="margin-top: 30px;">Close</button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 SecureSphere | Educate. Defend. Secure.</p>
+  </footer>
+
+  <script>
+    // User ID (in production, this would come from authentication)
+    const userId = 'user_' + Math.random().toString(36).substr(2, 9);
+    let currentModuleId = null;
+    let currentModuleData = null;
+
+    // Load progress on page load
+    window.addEventListener('DOMContentLoaded', loadProgress);
+
+    async function loadProgress() {
+      try {
+        const response = await fetch(`/api/learn/progress/${userId}`);
+        const progress = await response.json();
+
+        let completed = 0;
+        const total = 6;
+
+        // Update UI based on progress
+        Object.keys(progress).forEach(moduleId => {
+          if (progress[moduleId].completed) {
+            completed++;
+            const card = document.querySelector(`[data-module="${moduleId}"]`);
+            if (card) {
+              const meta = card.querySelector('.module-meta');
+              if (!meta.querySelector('.badge.completed')) {
+                const badge = document.createElement('span');
+                badge.className = 'badge completed';
+                badge.textContent = '✓ Completed';
+                meta.appendChild(badge);
+              }
+            }
+          }
+        });
+
+        document.getElementById('completedModules').textContent = completed;
+        document.getElementById('progressPercent').textContent = Math.round((completed / total) * 100) + '%';
+      } catch (error) {
+        console.error('Error loading progress:', error);
+      }
+    }
+
+    async function startModule(moduleId) {
+      currentModuleId = moduleId;
+      const modal = document.getElementById('moduleModal');
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+
+      // Reset content
+      document.getElementById('moduleContent').innerHTML = '<div class="loading"><div class="spinner"></div><p>Loading module content...</p></div>';
+      document.getElementById('quizSection').style.display = 'none';
+
+      try {
+        const response = await fetch(`/api/learn/module/${moduleId}`);
+        currentModuleData = await response.json();
+
+        document.getElementById('moduleTitle').textContent = currentModuleData.title;
+        document.getElementById('moduleLevel').textContent = `${currentModuleData.level} • ${currentModuleData.duration}`;
+
+        // Render content
+        let contentHTML = '';
+        currentModuleData.content.forEach(section => {
+          contentHTML += '<div class="content-section">';
+          contentHTML += `<h4>${section.heading}</h4>`;
+
+          if (section.type === 'text') {
+            contentHTML += `<p>${section.text}</p>`;
+          } else if (section.type === 'list') {
+            contentHTML += '<ul>';
+            section.items.forEach(item => {
+              contentHTML += `<li>${item}</li>`;
+            });
+            contentHTML += '</ul>';
+          }
+
+          contentHTML += '</div>';
+        });
+
+        contentHTML += '<button class="action-btn" onclick="showQuiz()">Take Quiz →</button>';
+        contentHTML += '<button class="action-btn secondary" onclick="closeModule()">Close</button>';
+
+        document.getElementById('moduleContent').innerHTML = contentHTML;
+      } catch (error) {
+        document.getElementById('moduleContent').innerHTML = '<p style="color: #ef4444;">Error loading module content. Please try again.</p>';
+        console.error('Error loading module:', error);
+      }
+    }
+
+    function showQuiz() {
+      document.getElementById('quizSection').style.display = 'block';
+      document.getElementById('quizSection').scrollIntoView({ behavior: 'smooth' });
+
+      // Generate quiz questions (simplified - 2 questions per module)
+      const questions = [
+        `What is the main focus of ${currentModuleData.title}?`,
+        `Name one key concept from ${currentModuleData.title}.`
+      ];
+
+      let quizHTML = '';
+      questions.forEach((q, index) => {
+        quizHTML += `
+      <div class="quiz-question">
+        <label>${index + 1}. ${q}</label>
+        <input type="text" id="answer${index}" placeholder="Your answer...">
+      </div>
+    `;
+      });
+
+      document.getElementById('quizQuestions').innerHTML = quizHTML;
+      document.getElementById('quizResult').classList.remove('show', 'passed', 'failed');
+    }
+
+    async function submitQuiz() {
+      const answers = [
+        document.getElementById('answer0').value,
+        document.getElementById('answer1').value
+      ];
+
+      if (answers.some(a => !a.trim())) {
+        alert('Please answer all questions!');
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/learn/quiz', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ moduleId: currentModuleId, answers })
+        });
+
+        const result = await response.json();
+        const resultDiv = document.getElementById('quizResult');
+
+        resultDiv.innerHTML = `
+      <h4>${result.message}</h4>
+      <p>Score: ${result.score}/${result.total} (${result.percentage}%)</p>
+    `;
+
+        resultDiv.classList.add('show', result.passed ? 'passed' : 'failed');
+
+        if (result.passed) {
+          // Save progress
+          await fetch('/api/learn/progress', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ userId, moduleId: currentModuleId, completed: true })
+          });
+
+          // Show certificate option
+          setTimeout(() => {
+            if (confirm('Congratulations! Would you like to generate a certificate?')) {
+              generateCertificate();
+            } else {
+              loadProgress();
+              closeModule();
+            }
+          }, 1500);
+        }
+      } catch (error) {
+        console.error('Error submitting quiz:', error);
+        alert('Error submitting quiz. Please try again.');
+      }
+    }
+
+    async function generateCertificate() {
+      try {
+        const name = prompt('Enter your name for the certificate:') || 'Student';
+
+        const response = await fetch('/api/learn/certificate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name,
+            moduleTitle: currentModuleData.title,
+            date: new Date().toLocaleDateString()
+          })
+        });
+
+        const cert = await response.json();
+
+        if (cert.success) {
+          document.getElementById('certName').textContent = name;
+          document.getElementById('certModule').textContent = cert.certificate.moduleTitle;
+          document.getElementById('certDate').textContent = 'Date: ' + cert.certificate.date;
+          document.getElementById('certId').textContent = 'Certificate ID: ' + cert.certificate.certificateId;
+
+          document.getElementById('certificateModal').classList.add('active');
+          closeModule();
+          loadProgress();
+        }
+      } catch (error) {
+        console.error('Error generating certificate:', error);
+        alert('Error generating certificate. Please try again.');
+      }
+    }
+
+    function closeModule() {
+      document.getElementById('moduleModal').classList.remove('active');
+      document.body.style.overflow = 'auto';
+      currentModuleId = null;
+      currentModuleData = null;
+    }
+
+    function closeCertificate() {
+      document.getElementById('certificateModal').classList.remove('active');
+    }
+
+    // Close modals on Escape key
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        closeModule();
+        closeCertificate();
+      }
+    });
+  </script>
+
+</body>
+
+</html>

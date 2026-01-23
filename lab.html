@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cyber Labs | SecureSphere</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #020617 0%, #0c1838 100%);
+            color: #e5e7eb;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 60px;
+            background: rgba(2, 6, 23, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(34, 211, 238, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #22d3ee;
+        }
+
+        .logo-icon {
+            font-size: 28px;
+            filter: drop-shadow(0 0 10px #22d3ee);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+        }
+
+        .nav-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #22d3ee, #06b6d4);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: #22d3ee;
+        }
+
+        .cta-btn {
+            background: linear-gradient(135deg, #22d3ee, #06b6d4);
+            color: #020617;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(34, 211, 238, 0.3);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(34, 211, 238, 0.5);
+        }
+
+        .btn-arrow {
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-btn:hover .btn-arrow {
+            transform: translateX(5px);
+        }
+
+        .container {
+            padding: 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .page-header h1 {
+            font-size: 48px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #22d3ee 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            color: #94a3b8;
+            font-size: 18px;
+        }
+
+        .labs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .lab-card {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.6) 100%);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid rgba(34, 211, 238, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lab-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(34, 211, 238, 0.1) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lab-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(34, 211, 238, 0.6);
+            box-shadow: 0 10px 40px rgba(34, 211, 238, 0.2);
+        }
+
+        .lab-card:hover::before {
+            opacity: 1;
+        }
+
+        .lab-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .lab-card h3 {
+            font-size: 24px;
+            color: #22d3ee;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .lab-card p {
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+
+        .difficulty {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .difficulty.easy {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .difficulty.medium {
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+        }
+
+        .difficulty.hard {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .launch-btn {
+            width: 100%;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #22d3ee 0%, #3b82f6 100%);
+            border: none;
+            border-radius: 8px;
+            color: #020617;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .launch-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .launch-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .launch-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 20px rgba(34, 211, 238, 0.4);
+        }
+
+        /* Lab Workspace Modal */
+        .lab-workspace {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(2, 6, 23, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .lab-workspace.active {
+            display: block;
+        }
+
+        .workspace-content {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.9) 100%);
+            border-radius: 20px;
+            border: 1px solid rgba(34, 211, 238, 0.3);
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            background: rgba(239, 68, 68, 0.3);
+            transform: rotate(90deg);
+        }
+
+        .workspace-header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(34, 211, 238, 0.2);
+        }
+
+        .workspace-header h2 {
+            font-size: 32px;
+            color: #22d3ee;
+            margin-bottom: 10px;
+        }
+
+        .workspace-header p {
+            color: #94a3b8;
+            font-size: 16px;
+        }
+
+        .lab-section {
+            margin-bottom: 25px;
+        }
+
+        .lab-section h4 {
+            color: #e5e7eb;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        textarea {
+            width: 100%;
+            padding: 12px 16px;
+            margin-top: 10px;
+            background: rgba(2, 6, 23, 0.6);
+            border: 1px solid rgba(34, 211, 238, 0.4);
+            border-radius: 8px;
+            color: #e5e7eb;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #22d3ee;
+            box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .action-btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #22d3ee 0%, #3b82f6 100%);
+            border: none;
+            border-radius: 8px;
+            color: #020617;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(34, 211, 238, 0.3);
+        }
+
+        .action-btn.secondary {
+            background: rgba(148, 163, 184, 0.2);
+            color: #94a3b8;
+            border: 1px solid rgba(148, 163, 184, 0.3);
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px 20px;
+            background: rgba(34, 211, 238, 0.1);
+            border-left: 4px solid #22d3ee;
+            border-radius: 8px;
+            color: #22d3ee;
+            font-size: 15px;
+            line-height: 1.6;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result.show {
+            display: block;
+        }
+
+        .result.success {
+            background: rgba(34, 197, 94, 0.1);
+            border-left-color: #22c55e;
+            color: #22c55e;
+        }
+
+        .result.error {
+            background: rgba(239, 68, 68, 0.1);
+            border-left-color: #ef4444;
+            color: #ef4444;
+        }
+
+        .result.warning {
+            background: rgba(251, 191, 36, 0.1);
+            border-left-color: #fbbf24;
+            color: #fbbf24;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 1200px) {
+            .labs-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+                flex-wrap: wrap;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .logo-icon {
+                font-size: 24px;
+            }
+
+            .nav-links {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                margin-top: 15px;
+                gap: 15px;
+                flex-wrap: wrap;
+            }
+
+            .nav-links a {
+                font-size: 14px;
+            }
+
+            .cta-btn {
+                padding: 10px 20px;
+                font-size: 13px;
+            }
+
+            .container {
+                padding: 40px 20px;
+            }
+
+            .page-header h1 {
+                font-size: 36px;
+            }
+
+            .page-header p {
+                font-size: 16px;
+            }
+
+            .labs-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .lab-card {
+                padding: 25px;
+            }
+
+            .lab-icon {
+                font-size: 40px;
+            }
+
+            .lab-card h3 {
+                font-size: 20px;
+            }
+
+            .workspace-content {
+                margin: 20px auto;
+                padding: 30px 20px;
+            }
+
+            .workspace-header h2 {
+                font-size: 26px;
+            }
+
+            .close-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 12px 15px;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            .logo-icon {
+                font-size: 22px;
+            }
+
+            .nav-links {
+                gap: 10px;
+            }
+
+            .nav-links a {
+                font-size: 13px;
+                padding: 3px 0;
+            }
+
+            .cta-btn {
+                padding: 8px 16px;
+                font-size: 12px;
+            }
+
+            .container {
+                padding: 30px 15px;
+            }
+
+            .page-header h1 {
+                font-size: 28px;
+            }
+
+            .page-header p {
+                font-size: 15px;
+            }
+
+            .lab-card {
+                padding: 20px;
+            }
+
+            .lab-icon {
+                font-size: 36px;
+            }
+
+            .lab-card h3 {
+                font-size: 18px;
+            }
+
+            .lab-card p {
+                font-size: 14px;
+            }
+
+            .difficulty {
+                font-size: 11px;
+                padding: 3px 10px;
+            }
+
+            .launch-btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+
+            .workspace-content {
+                margin: 10px;
+                padding: 25px 15px;
+                border-radius: 15px;
+            }
+
+            .workspace-header h2 {
+                font-size: 22px;
+            }
+
+            .workspace-header p {
+                font-size: 14px;
+            }
+
+            .lab-section h4 {
+                font-size: 16px;
+            }
+
+            input[type="text"],
+            input[type="password"],
+            textarea {
+                padding: 10px 14px;
+                font-size: 14px;
+            }
+
+            .action-btn {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+
+            .close-btn {
+                top: 15px;
+                right: 15px;
+                width: 32px;
+                height: 32px;
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div class="logo">
+            <span class="logo-icon">🛡️</span>
+            <span class="logo-text">SecureSphere</span>
+        </div>
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="learn.html">Learn</a>
+            <a href="services.html">Services</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="lab.html">Labs</a>
+            <a href="game.html">Games</a>
+        </nav>
+        <button class="cta-btn" onclick="window.location.href='index.html#contact'">
+            <span>Get Started</span>
+            <span class="btn-arrow">→</span>
+        </button>
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>🧪 Cybersecurity Labs</h1>
+            <p>Hands-on interactive labs to master cybersecurity concepts</p>
+        </div>
+
+        <div class="labs-grid">
+            <!-- SQL Injection Lab -->
+            <div class="lab-card">
+                <span class="lab-icon">🧪</span>
+                <span class="difficulty medium">Medium</span>
+                <h3>SQL Injection Lab</h3>
+                <p>Learn how SQL injection attacks work by testing different payloads against a vulnerable database
+                    query. Understand how attackers exploit unsanitized inputs.</p>
+                <button class="launch-btn" onclick="launchLab('sql')">Launch Lab →</button>
+            </div>
+
+            <!-- Phishing Detection Lab -->
+            <div class="lab-card">
+                <span class="lab-icon">🎣</span>
+                <span class="difficulty easy">Easy</span>
+                <h3>Phishing Detection</h3>
+                <p>Practice identifying phishing attempts by analyzing suspicious emails. Learn to spot red flags and
+                    protect yourself from social engineering attacks.</p>
+                <button class="launch-btn" onclick="launchLab('phishing')">Launch Lab →</button>
+            </div>
+
+            <!-- Password Strength Lab -->
+            <div class="lab-card">
+                <span class="lab-icon">🛡️</span>
+                <span class="difficulty easy">Easy</span>
+                <h3>Password Strength Checker</h3>
+                <p>Test password security by analyzing strength factors like length, complexity, and character variety.
+                    Learn what makes a password truly secure.</p>
+                <button class="launch-btn" onclick="launchLab('password')">Launch Lab →</button>
+            </div>
+
+            <!-- Network Scanning Lab -->
+            <div class="lab-card">
+                <span class="lab-icon">📡</span>
+                <span class="difficulty medium">Medium</span>
+                <h3>Network Scanning</h3>
+                <p>Perform reconnaissance on a simulated network to discover open ports and services. Understand the
+                    first phase of penetration testing.</p>
+                <button class="launch-btn" onclick="launchLab('network')">Launch Lab →</button>
+            </div>
+
+            <!-- IAM Policy Lab -->
+            <div class="lab-card">
+                <span class="lab-icon">🔐</span>
+                <span class="difficulty hard">Hard</span>
+                <h3>IAM Policy Testing</h3>
+                <p>Explore Identity and Access Management by testing different user roles and permissions. Learn how
+                    proper IAM prevents unauthorized access.</p>
+                <button class="launch-btn" onclick="launchLab('iam')">Launch Lab →</button>
+            </div>
+
+            <!-- Malware Analysis Lab -->
+            <div class="lab-card">
+                <span class="lab-icon">🧠</span>
+                <span class="difficulty hard">Hard</span>
+                <h3>Malware Behavior Analysis</h3>
+                <p>Analyze suspicious file behaviors to identify malware types. Learn to recognize ransomware, trojans,
+                    and other malicious software patterns.</p>
+                <button class="launch-btn" onclick="launchLab('malware')">Launch Lab →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lab Workspaces -->
+
+    <!-- SQL Injection Workspace -->
+    <div id="sql-workspace" class="lab-workspace">
+        <div class="workspace-content">
+            <button class="close-btn" onclick="closeLab('sql')">×</button>
+            <div class="workspace-header">
+                <h2>🧪 SQL Injection Lab</h2>
+                <p>Test SQL injection vulnerabilities by entering different payloads</p>
+            </div>
+
+            <div class="lab-section">
+                <h4>Enter SQL Payload:</h4>
+                <input type="text" id="sqlInput" placeholder="Try: ' OR 1=1 --">
+                <button class="action-btn" onclick="sqlLab()">Test Payload</button>
+                <button class="action-btn secondary" onclick="clearResult('sqlResult')">Clear</button>
+            </div>
+
+            <div id="sqlResult" class="result"></div>
+
+            <div class="lab-section" style="margin-top: 30px;">
+                <h4>💡 Hints:</h4>
+                <p style="color: #94a3b8; font-size: 14px;">
+                    • Try classic SQL injection payloads like <code
+                        style="background: rgba(34, 211, 238, 0.2); padding: 2px 6px; border-radius: 4px;">' OR 1=1</code><br>
+                    • Observe how the backend detects malicious patterns<br>
+                    • Test both vulnerable and safe queries
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Phishing Detection Workspace -->
+    <div id="phishing-workspace" class="lab-workspace">
+        <div class="workspace-content">
+            <button class="close-btn" onclick="closeLab('phishing')">×</button>
+            <div class="workspace-header">
+                <h2>🎣 Phishing Detection Lab</h2>
+                <p>Analyze the email and determine if it's a phishing attempt</p>
+            </div>
+
+            <div class="lab-section">
+                <h4>Email Sample:</h4>
+                <div
+                    style="background: rgba(2, 6, 23, 0.6); padding: 20px; border-radius: 8px; border: 1px solid rgba(34, 211, 238, 0.2); margin: 15px 0;">
+                    <p style="color: #e5e7eb; margin-bottom: 10px;"><strong>From:</strong> security@paypa1-verify.com
+                    </p>
+                    <p style="color: #e5e7eb; margin-bottom: 10px;"><strong>Subject:</strong> Urgent: Verify Your
+                        Account Now!</p>
+                    <p style="color: #94a3b8; line-height: 1.6;">
+                        Dear valued customer,<br><br>
+                        We have detected unusual activity on your account. Please click the link below to verify your
+                        identity immediately or your account will be suspended within 24 hours.<br><br>
+                        <a href="#" style="color: #22d3ee;">Click here to verify now</a><br><br>
+                        Thank you,<br>
+                        PayPal Security Team
+                    </p>
+                </div>
+
+                <h4>Is this email legitimate or phishing?</h4>
+                <button class="action-btn" onclick="phishLab('phish')">🚨 Phishing</button>
+                <button class="action-btn secondary" onclick="phishLab('safe')">✅ Safe</button>
+            </div>
+
+            <div id="phishResult" class="result"></div>
+        </div>
+    </div>
+
+    <!-- Password Strength Workspace -->
+    <div id="password-workspace" class="lab-workspace">
+        <div class="workspace-content">
+            <button class="close-btn" onclick="closeLab('password')">×</button>
+            <div class="workspace-header">
+                <h2>🛡️ Password Strength Checker</h2>
+                <p>Test the strength of different passwords</p>
+            </div>
+
+            <div class="lab-section">
+                <h4>Enter Password to Test:</h4>
+                <input type="password" id="pwdInput" placeholder="Enter a password">
+                <button class="action-btn" onclick="pwdLab()">Check Strength</button>
+                <button class="action-btn secondary" onclick="clearResult('pwdResult')">Clear</button>
+            </div>
+
+            <div id="pwdResult" class="result"></div>
+
+            <div class="lab-section" style="margin-top: 30px;">
+                <h4>💡 Password Requirements:</h4>
+                <p style="color: #94a3b8; font-size: 14px;">
+                    • Minimum 8 characters<br>
+                    • At least one uppercase letter<br>
+                    • At least one number<br>
+                    • Special characters recommended
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Network Scanning Workspace -->
+    <div id="network-workspace" class="lab-workspace">
+        <div class="workspace-content">
+            <button class="close-btn" onclick="closeLab('network')">×</button>
+            <div class="workspace-header">
+                <h2>📡 Network Scanning Lab</h2>
+                <p>Perform a network scan to discover open ports and services</p>
+            </div>
+
+            <div class="lab-section">
+                <h4>Target Network:</h4>
+                <input type="text" id="networkInput" placeholder="192.168.1.0/24" value="192.168.1.100" readonly>
+                <button class="action-btn" onclick="networkLab()">Start Scan</button>
+            </div>
+
+            <div id="netResult" class="result"></div>
+
+            <div class="lab-section" style="margin-top: 30px;">
+                <h4>📋 About Network Scanning:</h4>
+                <p style="color: #94a3b8; font-size: 14px;">
+                    Network scanning is the first phase of reconnaissance in penetration testing. It helps identify:<br>
+                    • Open ports and services<br>
+                    • Operating system information<br>
+                    • Potential vulnerabilities
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- IAM Policy Workspace -->
+    <div id="iam-workspace" class="lab-workspace">
+        <div class="workspace-content">
+            <button class="close-btn" onclick="closeLab('iam')">×</button>
+            <div class="workspace-header">
+                <h2>🔐 IAM Policy Testing Lab</h2>
+                <p>Test access control by entering different user roles</p>
+            </div>
+
+            <div class="lab-section">
+                <h4>Enter User Role:</h4>
+                <input type="text" id="roleInput" placeholder="Try: admin, user, guest">
+                <button class="action-btn" onclick="iamLab()">Check Access</button>
+                <button class="action-btn secondary" onclick="clearResult('iamResult')">Clear</button>
+            </div>
+
+            <div id="iamResult" class="result"></div>
+
+            <div class="lab-section" style="margin-top: 30px;">
+                <h4>🔑 Available Roles:</h4>
+                <p style="color: #94a3b8; font-size: 14px;">
+                    • <strong>admin</strong> - Full system access<br>
+                    • <strong>user</strong> - Limited access<br>
+                    • <strong>guest</strong> - Read-only access
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Malware Analysis Workspace -->
+    <div id="malware-workspace" class="lab-workspace">
+        <div class="workspace-content">
+            <button class="close-btn" onclick="closeLab('malware')">×</button>
+            <div class="workspace-header">
+                <h2>🧠 Malware Behavior Analysis</h2>
+                <p>Analyze file behavior to identify malware types</p>
+            </div>
+
+            <div class="lab-section">
+                <h4>Describe Observed Behavior:</h4>
+                <textarea id="malInput"
+                    placeholder="Example: File attempts to encrypt files in Documents folder"></textarea>
+                <button class="action-btn" onclick="malLab()">Analyze Behavior</button>
+                <button class="action-btn secondary" onclick="clearResult('malResult')">Clear</button>
+            </div>
+
+            <div id="malResult" class="result"></div>
+
+            <div class="lab-section" style="margin-top: 30px;">
+                <h4>⚠️ Common Malware Behaviors:</h4>
+                <p style="color: #94a3b8; font-size: 14px;">
+                    • File encryption (Ransomware)<br>
+                    • Keylogging and data theft (Spyware)<br>
+                    • Network communication to unknown servers (Trojan)<br>
+                    • Self-replication (Worm)
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Launch Lab Function
+        function launchLab(labType) {
+            const workspace = document.getElementById(`${labType}-workspace`);
+            workspace.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close Lab Function
+        function closeLab(labType) {
+            const workspace = document.getElementById(`${labType}-workspace`);
+            workspace.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Clear Result Function
+        function clearResult(resultId) {
+            const resultDiv = document.getElementById(resultId);
+            resultDiv.classList.remove('show', 'success', 'error', 'warning');
+            resultDiv.innerText = '';
+        }
+
+        // Display Result Function
+        function displayResult(resultId, message, type = 'info') {
+            const resultDiv = document.getElementById(resultId);
+            resultDiv.innerText = message;
+            resultDiv.classList.remove('success', 'error', 'warning');
+            resultDiv.classList.add('show', type);
+        }
+
+        // SQL Injection Lab
+        async function sqlLab() {
+            const payload = document.getElementById("sqlInput").value;
+            if (!payload) {
+                displayResult('sqlResult', '⚠️ Please enter a SQL payload', 'warning');
+                return;
+            }
+
+            try {
+                const res = await fetch("/api/sql", {
+                    method: "POST",
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ payload })
+                });
+                const data = await res.json();
+                const type = data.result.includes('✅') ? 'success' : 'error';
+                displayResult('sqlResult', data.result, type);
+            } catch (error) {
+                displayResult('sqlResult', '❌ Error connecting to server', 'error');
+            }
+        }
+
+        // Phishing Detection Lab
+        async function phishLab(ans) {
+            try {
+                const res = await fetch("/api/phish", {
+                    method: "POST",
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ answer: ans })
+                });
+                const data = await res.json();
+                const type = data.result.includes('✅') ? 'success' : 'error';
+                displayResult('phishResult', data.result, type);
+            } catch (error) {
+                displayResult('phishResult', '❌ Error connecting to server', 'error');
+            }
+        }
+
+        // Password Strength Lab
+        async function pwdLab() {
+            const password = document.getElementById("pwdInput").value;
+            if (!password) {
+                displayResult('pwdResult', '⚠️ Please enter a password', 'warning');
+                return;
+            }
+
+            try {
+                const res = await fetch("/api/password", {
+                    method: "POST",
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password })
+                });
+                const data = await res.json();
+                const type = data.result.includes('Strong') ? 'success' : 'warning';
+                displayResult('pwdResult', data.result, type);
+            } catch (error) {
+                displayResult('pwdResult', '❌ Error connecting to server', 'error');
+            }
+        }
+
+        // Network Scanning Lab
+        async function networkLab() {
+            displayResult('netResult', '🔄 Scanning network...', 'info');
+
+            try {
+                const res = await fetch("/api/network");
+                const data = await res.json();
+                setTimeout(() => {
+                    displayResult('netResult', data.result, 'success');
+                }, 1500);
+            } catch (error) {
+                displayResult('netResult', '❌ Error connecting to server', 'error');
+            }
+        }
+
+        // IAM Policy Lab
+        async function iamLab() {
+            const role = document.getElementById("roleInput").value;
+            if (!role) {
+                displayResult('iamResult', '⚠️ Please enter a role', 'warning');
+                return;
+            }
+
+            try {
+                const res = await fetch("/api/iam", {
+                    method: "POST",
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ role })
+                });
+                const data = await res.json();
+                const type = data.result.includes('✅') ? 'success' : 'error';
+                displayResult('iamResult', data.result, type);
+            } catch (error) {
+                displayResult('iamResult', '❌ Error connecting to server', 'error');
+            }
+        }
+
+        // Malware Analysis Lab
+        async function malLab() {
+            const behavior = document.getElementById("malInput").value;
+            if (!behavior) {
+                displayResult('malResult', '⚠️ Please describe the behavior', 'warning');
+                return;
+            }
+
+            try {
+                const res = await fetch("/api/malware", {
+                    method: "POST",
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ behavior })
+                });
+                const data = await res.json();
+                const type = data.result.includes('⚠️') ? 'error' : 'success';
+                displayResult('malResult', data.result, type);
+            } catch (error) {
+                displayResult('malResult', '❌ Error connecting to server', 'error');
+            }
+        }
+
+        // Close workspace on Escape key
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                const activeWorkspace = document.querySelector('.lab-workspace.active');
+                if (activeWorkspace) {
+                    const labType = activeWorkspace.id.replace('-workspace', '');
+                    closeLab(labType);
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>

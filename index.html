@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SecureSphere | Elite Cybersecurity Solutions</title>
+  <meta name="description"
+    content="Transform your digital security with SecureSphere - Expert penetration testing, security audits, and cybersecurity training. Protect what matters most.">
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+  <!-- Animated Background -->
+  <div class="matrix-bg" id="matrixBg"></div>
+
+  <!-- 🔐 NAVBAR -->
+  <header class="navbar">
+    <div class="logo">
+      <span class="logo-icon">🛡️</span>
+      <span class="logo-text">SecureSphere</span>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="learn.html">Learn</a>
+      <a href="services.html">Services</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="lab.html">Labs</a>
+      <a href="game.html">Games</a>
+    </nav>
+    <button class="cta-btn" onclick="scrollToSection('contact')">
+      <span>Get Started</span>
+      <span class="btn-arrow">→</span>
+    </button>
+  </header>
+
+  <!-- 🚀 HERO SECTION -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-icon">⚡</span>
+        <span>Trusted by 500+ Organizations</span>
+      </div>
+      <h1 class="hero-title">
+        <span class="title-line">Defend Your Digital</span>
+        <span class="title-line gradient-text">Future Today</span>
+      </h1>
+      <p class="hero-subtitle">
+        Elite cybersecurity solutions combining cutting-edge technology with expert human intelligence.
+        We don't just find vulnerabilities—we eliminate them.
+      </p>
+      <div class="hero-buttons">
+        <button class="btn-primary" onclick="window.location.href='services.html'">
+          <span>Explore Services</span>
+          <span class="btn-glow"></span>
+        </button>
+        <button class="btn-secondary" onclick="scrollToSection('demo')">
+          <span class="play-icon">▶</span>
+          <span>Watch Demo</span>
+        </button>
+      </div>
+
+      <!-- Live Stats -->
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-number" data-target="500">0</div>
+          <div class="stat-label">Clients Protected</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="10000">0</div>
+          <div class="stat-label">Threats Blocked</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="99.9">0</div>
+          <div class="stat-label">Uptime %</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="24">0</div>
+          <div class="stat-label">Hour Support</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating Security Icons -->
+    <div class="floating-icons">
+      <div class="float-icon" style="--delay: 0s">🔒</div>
+      <div class="float-icon" style="--delay: 1s">🛡️</div>
+      <div class="float-icon" style="--delay: 2s">🔐</div>
+      <div class="float-icon" style="--delay: 3s">🔑</div>
+      <div class="float-icon" style="--delay: 4s">⚡</div>
+    </div>
+  </section>
+
+  <!-- 🎯 FEATURES SECTION -->
+  <section class="features" id="features">
+    <div class="section-header">
+      <span class="section-badge">Why Choose Us</span>
+      <h2 class="section-title">Comprehensive Security Solutions</h2>
+      <p class="section-subtitle">From vulnerability assessment to incident response, we've got you covered</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3>Penetration Testing</h3>
+        <p>Simulate real-world attacks to identify vulnerabilities before hackers do. OWASP Top 10 certified.</p>
+        <a href="services.html" class="feature-link">Learn More →</a>
+      </div>
+
+      <div class="feature-card featured">
+        <div class="feature-badge">Most Popular</div>
+        <div class="feature-icon">🔍</div>
+        <h3>Security Audits</h3>
+        <p>Comprehensive analysis of your security posture with actionable recommendations and compliance checks.</p>
+        <a href="services.html" class="feature-link">Learn More →</a>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📚</div>
+        <h3>Security Training</h3>
+        <p>Empower your team with hands-on cybersecurity training and awareness programs.</p>
+        <a href="learn.html" class="feature-link">Learn More →</a>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🔐</div>
+        <h3>IAM Solutions</h3>
+        <p>Identity and Access Management implementation with zero-trust architecture principles.</p>
+        <a href="services.html" class="feature-link">Learn More →</a>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">☁️</div>
+        <h3>Cloud Security</h3>
+        <p>Secure your cloud infrastructure with AWS, Azure, and GCP security best practices.</p>
+        <a href="services.html" class="feature-link">Learn More →</a>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🚨</div>
+        <h3>Incident Response</h3>
+        <p>24/7 rapid response team ready to contain and remediate security incidents.</p>
+        <a href="services.html" class="feature-link">Learn More →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 💼 PORTFOLIO SHOWCASE -->
+  <section class="portfolio-preview" id="portfolio">
+    <div class="section-header">
+      <span class="section-badge">Success Stories</span>
+      <h2 class="section-title">Proven Track Record</h2>
+      <p class="section-subtitle">Real results for real businesses</p>
+    </div>
+
+    <div class="portfolio-slider">
+      <div class="portfolio-item">
+        <div class="portfolio-image">
+          <div class="portfolio-icon">🏢</div>
+        </div>
+        <div class="portfolio-content">
+          <h3>Fortune 500 Enterprise</h3>
+          <p>Identified and remediated 47 critical vulnerabilities, improving security posture by 85%</p>
+          <div class="portfolio-tags">
+            <span>Penetration Testing</span>
+            <span>Network Security</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-item">
+        <div class="portfolio-image">
+          <div class="portfolio-icon">🏥</div>
+        </div>
+        <div class="portfolio-content">
+          <h3>Healthcare Provider</h3>
+          <p>Achieved ISO 27001 certification within 6 months with zero audit findings</p>
+          <div class="portfolio-tags">
+            <span>Compliance</span>
+            <span>GDPR</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-item">
+        <div class="portfolio-image">
+          <div class="portfolio-icon">💳</div>
+        </div>
+        <div class="portfolio-content">
+          <h3>FinTech Startup</h3>
+          <p>Passed PCI DSS Level 1 audit with comprehensive security implementation</p>
+          <div class="portfolio-tags">
+            <span>PCI DSS</span>
+            <span>Payment Security</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="portfolio-cta">
+      <button class="btn-primary" onclick="window.location.href='portfolio.html'">
+        <span>View All Projects</span>
+        <span class="btn-glow"></span>
+      </button>
+    </div>
+  </section>
+
+  <!-- 🎓 LEARNING PLATFORM -->
+  <section class="learning-section" id="learn">
+    <div class="learning-content">
+      <div class="learning-text">
+        <span class="section-badge">Education First</span>
+        <h2 class="section-title">Master Cybersecurity</h2>
+        <p>Access our comprehensive learning platform with interactive labs, real-world scenarios, and expert-led
+          courses.</p>
+        <ul class="learning-features">
+          <li>
+            <span class="check-icon">✓</span>
+            <span>50+ Interactive Cyber Labs</span>
+          </li>
+          <li>
+            <span class="check-icon">✓</span>
+            <span>Industry-Recognized Certifications</span>
+          </li>
+          <li>
+            <span class="check-icon">✓</span>
+            <span>Hands-on Penetration Testing</span>
+          </li>
+          <li>
+            <span class="check-icon">✓</span>
+            <span>24/7 Learning Support</span>
+          </li>
+        </ul>
+        <button class="btn-primary" onclick="window.location.href='learn.html'">
+          <span>Start Learning Free</span>
+          <span class="btn-glow"></span>
+        </button>
+      </div>
+      <div class="learning-visual">
+        <div class="learning-card">
+          <div class="card-header">
+            <span class="card-icon">🎯</span>
+            <span class="card-status">In Progress</span>
+          </div>
+          <h4>Web Application Security</h4>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 65%"></div>
+          </div>
+          <p class="progress-text">65% Complete</p>
+        </div>
+        <div class="learning-card">
+          <div class="card-header">
+            <span class="card-icon">🔐</span>
+            <span class="card-status completed">Completed</span>
+          </div>
+          <h4>Network Penetration Testing</h4>
+          <div class="progress-bar">
+            <div class="progress-fill completed" style="width: 100%"></div>
+          </div>
+          <p class="progress-text">Certificate Earned 🏆</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🌟 TESTIMONIALS -->
+  <section class="testimonials" id="testimonials">
+    <div class="section-header">
+      <span class="section-badge">Client Reviews</span>
+      <h2 class="section-title">What Our Clients Say</h2>
+      <p class="section-subtitle">Join hundreds of satisfied organizations</p>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+        <p class="testimonial-text">"SecureSphere's penetration testing revealed critical vulnerabilities we never knew
+          existed. Their team is professional, thorough, and genuinely cares about our security."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">SJ</div>
+          <div class="author-info">
+            <div class="author-name">Sarah Johnson</div>
+            <div class="author-role">CTO, TechStart Inc.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+        <p class="testimonial-text">"The security audit was comprehensive and the recommendations were actionable. We
+          improved our security posture significantly and passed our SOC 2 audit."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">MC</div>
+          <div class="author-info">
+            <div class="author-name">Michael Chen</div>
+            <div class="author-role">Security Manager, DataFlow</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+        <p class="testimonial-text">"Outstanding compliance support! They guided us through ISO 27001 certification
+          smoothly. Highly recommend for any organization serious about security."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">ER</div>
+          <div class="author-info">
+            <div class="author-name">Emily Rodriguez</div>
+            <div class="author-role">CEO, CloudVentures</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🎮 INTERACTIVE DEMO -->
+  <section class="demo-section" id="demo">
+    <div class="demo-content">
+      <div class="demo-visual">
+        <div class="terminal">
+          <div class="terminal-header">
+            <span class="terminal-dot red"></span>
+            <span class="terminal-dot yellow"></span>
+            <span class="terminal-dot green"></span>
+            <span class="terminal-title">SecureSphere Security Scanner</span>
+          </div>
+          <div class="terminal-body" id="terminalBody">
+            <div class="terminal-line">$ securesphere --scan target.com</div>
+            <div class="terminal-line">Initializing security scan...</div>
+            <div class="terminal-line success">✓ Port scanning complete</div>
+            <div class="terminal-line success">✓ Vulnerability assessment complete</div>
+            <div class="terminal-line warning">⚠ 3 medium-risk vulnerabilities found</div>
+            <div class="terminal-line">Generating report...</div>
+            <div class="terminal-line cursor">█</div>
+          </div>
+        </div>
+      </div>
+      <div class="demo-text">
+        <span class="section-badge">Try It Live</span>
+        <h2 class="section-title">Experience Our Platform</h2>
+        <p>Test your security knowledge with our interactive cyber labs. Practice real-world scenarios in a safe
+          environment.</p>
+        <div class="demo-features">
+          <div class="demo-feature">
+            <span class="demo-icon">🔍</span>
+            <div>
+              <h4>SQL Injection Lab</h4>
+              <p>Learn to identify and prevent SQL injection attacks</p>
+            </div>
+          </div>
+          <div class="demo-feature">
+            <span class="demo-icon">🎣</span>
+            <div>
+              <h4>Phishing Detection</h4>
+              <p>Train your team to spot phishing attempts</p>
+            </div>
+          </div>
+          <div class="demo-feature">
+            <span class="demo-icon">🔐</span>
+            <div>
+              <h4>Password Security</h4>
+              <p>Test password strength and best practices</p>
+            </div>
+          </div>
+        </div>
+        <button class="btn-primary" onclick="window.location.href='lab.html'">
+          <span>Try Labs Now</span>
+          <span class="btn-glow"></span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 📞 CONTACT SECTION -->
+  <section class="contact-section" id="contact">
+    <div class="contact-container">
+      <div class="contact-info">
+        <span class="section-badge">Get In Touch</span>
+        <h2 class="section-title">Ready to Secure Your Business?</h2>
+        <p>Let's discuss how we can protect your digital assets and strengthen your security posture.</p>
+
+        <div class="contact-methods">
+          <div class="contact-method">
+            <div class="method-icon">📧</div>
+            <div class="method-details">
+              <h4>Email Us</h4>
+              <p>contact@securesphere.com</p>
+            </div>
+          </div>
+          <div class="contact-method">
+            <div class="method-icon">💼</div>
+            <div class="method-details">
+              <h4>LinkedIn</h4>
+              <p>linkedin.com/company/securesphere</p>
+            </div>
+          </div>
+          <div class="contact-method">
+            <div class="method-icon">🌐</div>
+            <div class="method-details">
+              <h4>Website</h4>
+              <p>www.securesphere.com</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="trust-badges">
+          <div class="badge">ISO 27001 Certified</div>
+          <div class="badge">SOC 2 Compliant</div>
+          <div class="badge">GDPR Ready</div>
+        </div>
+      </div>
+
+      <div class="contact-form-wrapper">
+        <form id="contactForm" class="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Full Name *</label>
+              <input type="text" id="name" name="name" required placeholder="John Doe">
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" name="email" required placeholder="john@company.com">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="company">Company Name</label>
+            <input type="text" id="company" name="company" placeholder="Your Company">
+          </div>
+
+          <div class="form-group">
+            <label for="service">Service Interest *</label>
+            <select id="service" name="service" required>
+              <option value="">Select a service</option>
+              <option value="penetration-testing">Penetration Testing</option>
+              <option value="security-audit">Security Audit</option>
+              <option value="compliance">Compliance Support</option>
+              <option value="training">Security Training</option>
+              <option value="consulting">Consulting</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message *</label>
+            <textarea id="message" name="message" rows="4" required
+              placeholder="Tell us about your security needs..."></textarea>
+          </div>
+
+          <button type="submit" class="btn-primary submit-btn">
+            <span>Send Message</span>
+            <span class="btn-glow"></span>
+          </button>
+        </form>
+        <div id="formMessage" class="form-message"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⚫ FOOTER -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <div class="footer-logo">
+          <span class="logo-icon">🛡️</span>
+          <span class="logo-text">SecureSphere</span>
+        </div>
+        <p class="footer-tagline">Educate. Defend. Secure.</p>
+        <p class="footer-description">Professional cybersecurity services and education for the modern digital world.
+        </p>
+      </div>
+
+      <div class="footer-section">
+        <h4>Services</h4>
+        <a href="services.html">Penetration Testing</a>
+        <a href="services.html">Security Audits</a>
+        <a href="services.html">Compliance Support</a>
+        <a href="services.html">Security Training</a>
+      </div>
+
+      <div class="footer-section">
+        <h4>Resources</h4>
+        <a href="learn.html">Learning Platform</a>
+        <a href="lab.html">Cyber Labs</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="game.html">Security Games</a>
+      </div>
+
+      <div class="footer-section">
+        <h4>Company</h4>
+        <a href="#about">About Us</a>
+        <a href="#contact">Contact</a>
+        <a href="#careers">Careers</a>
+        <a href="#privacy">Privacy Policy</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 SecureSphere. All rights reserved.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="LinkedIn">💼</a>
+        <a href="#" aria-label="Twitter">🐦</a>
+        <a href="#" aria-label="GitHub">💻</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast"></div>
+
+  <script src="index.js"></script>
+
+</body>
+
+</html>

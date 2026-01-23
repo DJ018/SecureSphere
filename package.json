@@ -1,0 +1,16 @@
+{
+  "name": "securesphere",
+  "version": "1.0.0",
+  "description": "SecureSphere Cybersecurity Labs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["cybersecurity", "labs", "education"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

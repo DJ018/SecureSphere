@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Portfolio | SecureSphere</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Explore our cybersecurity portfolio featuring projects, certifications, and professional achievements">
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600;700&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="portfolio.css">
+</head>
+
+<body>
+
+  <!-- 🔐 NAVBAR -->
+  <header class="navbar">
+    <div class="logo">SecureSphere</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="learn.html">Learn</a>
+      <a href="services.html">Services</a>
+      <a href="portfolio.html" class="active">Portfolio</a>
+      <a href="lab.html">Labs</a>
+      <a href="game.html">Games</a>
+    </nav>
+  </header>
+
+  <!-- 🎯 HERO SECTION -->
+  <section class="portfolio-hero">
+    <div class="hero-content">
+      <h1>🛡️ Cybersecurity Portfolio</h1>
+      <p class="hero-subtitle">Showcasing expertise in security assessments, penetration testing, and compliance</p>
+    </div>
+
+    <!-- Stats Dashboard -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">🎯</div>
+        <div class="stat-number" data-target="50">0</div>
+        <div class="stat-label">Projects Completed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🏆</div>
+        <div class="stat-number" data-target="15">0</div>
+        <div class="stat-label">Certifications</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🔒</div>
+        <div class="stat-number" data-target="200">0</div>
+        <div class="stat-label">Vulnerabilities Found</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⭐</div>
+        <div class="stat-number" data-target="98">0</div>
+        <div class="stat-label">Client Satisfaction %</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🔍 FILTER SECTION -->
+  <section class="portfolio-section">
+    <div class="filter-container">
+      <button class="filter-btn active" data-filter="all">All Projects</button>
+      <button class="filter-btn" data-filter="penetration">Penetration Testing</button>
+      <button class="filter-btn" data-filter="audit">Security Audits</button>
+      <button class="filter-btn" data-filter="compliance">Compliance</button>
+      <button class="filter-btn" data-filter="development">Development</button>
+    </div>
+
+    <!-- 📂 PORTFOLIO GRID -->
+    <div class="portfolio-grid">
+
+      <!-- Project 1 -->
+      <div class="portfolio-card" data-category="penetration">
+        <div class="card-image">
+          <div class="project-badge">Featured</div>
+          <div class="project-icon">🎯</div>
+        </div>
+        <div class="card-content">
+          <h3>Enterprise Network Penetration Test</h3>
+          <p>Comprehensive security assessment of Fortune 500 company's infrastructure, identifying 47 critical
+            vulnerabilities.</p>
+          <div class="tags">
+            <span>Penetration Testing</span>
+            <span>Network Security</span>
+            <span>VAPT</span>
+          </div>
+          <div class="card-footer">
+            <span class="project-date">📅 Dec 2025</span>
+            <button class="view-btn" onclick="openProjectModal('project1')">View Details →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="portfolio-card" data-category="audit">
+        <div class="card-image">
+          <div class="project-icon">📊</div>
+        </div>
+        <div class="card-content">
+          <h3>ISO 27001 Security Audit</h3>
+          <p>Complete security audit and gap analysis for ISO 27001 certification, covering 114 controls.</p>
+          <div class="tags">
+            <span>ISO 27001</span>
+            <span>Audit</span>
+            <span>Risk Assessment</span>
+          </div>
+          <div class="card-footer">
+            <span class="project-date">📅 Nov 2025</span>
+            <button class="view-btn" onclick="openProjectModal('project2')">View Details →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="portfolio-card" data-category="penetration">
+        <div class="card-image">
+          <div class="project-icon">🌐</div>
+        </div>
+        <div class="card-content">
+          <h3>Web Application Security Assessment</h3>
+          <p>OWASP Top 10 vulnerability assessment for e-commerce platform handling 100K+ daily transactions.</p>
+          <div class="tags">
+            <span>OWASP</span>
+            <span>Web Security</span>
+            <span>SQLi</span>
+          </div>
+          <div class="card-footer">
+            <span class="project-date">📅 Oct 2025</span>
+            <button class="view-btn" onclick="openProjectModal('project3')">View Details →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 4 -->
+      <div class="portfolio-card" data-category="compliance">
+        <div class="card-image">
+          <div class="project-badge">New</div>
+          <div class="project-icon">✅</div>
+        </div>
+        <div class="card-content">
+          <h3>GDPR Compliance Implementation</h3>
+          <p>Data protection and privacy compliance framework for healthcare organization with 50K+ patient records.</p>
+          <div class="tags">
+            <span>GDPR</span>
+            <span>Compliance</span>
+            <span>Privacy</span>
+          </div>
+          <div class="card-footer">
+            <span class="project-date">📅 Jan 2026</span>
+            <button class="view-btn" onclick="openProjectModal('project4')">View Details →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 5 -->
+      <div class="portfolio-card" data-category="audit">
+        <div class="card-image">
+          <div class="project-icon">🔐</div>
+        </div>
+        <div class="card-content">
+          <h3>Cloud Security Architecture Review</h3>
+          <p>AWS infrastructure security assessment and hardening recommendations for fintech startup.</p>
+          <div class="tags">
+            <span>AWS</span>
+            <span>Cloud Security</span>
+            <span>Architecture</span>
+          </div>
+          <div class="card-footer">
+            <span class="project-date">📅 Sep 2025</span>
+            <button class="view-btn" onclick="openProjectModal('project5')">View Details →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 6 -->
+      <div class="portfolio-card" data-category="development">
+        <div class="card-image">
+          <div class="project-icon">💻</div>
+        </div>
+        <div class="card-content">
+          <h3>Security Automation Framework</h3>
+          <p>Custom Python-based security automation tool for vulnerability scanning and reporting.</p>
+          <div class="tags">
+            <span>Python</span>
+            <span>Automation</span>
+            <span>DevSecOps</span>
+          </div>
+          <div class="card-footer">
+            <span class="project-date">📅 Aug 2025</span>
+            <button class="view-btn" onclick="openProjectModal('project6')">View Details →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 7 -->
+      <div class="portfolio-card" data-category="penetration">
+        <div class="card-image">
+          <div class="project-icon">📱</div>
+        </div>
+        <div class="card-content">
+          <h3>Mobile App Security Testing</h3>
+          <p>Comprehensive security assessment of Android and iOS banking application.</p>
+          <div class="tags">
+            <span>Mobile Security</span>
+            <span>OWASP MASVS</span>
+            <span>Reverse Engineering</span>
+          </div>
+          <div class="card-footer">
+            <span class="project-date">📅 Jul 2025</span>
+            <button class="view-btn" onclick="openProjectModal('project7')">View Details →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 8 -->
+      <div class="portfolio-card" data-category="compliance">
+        <div class="card-image">
+          <div class="project-icon">🏦</div>
+        </div>
+        <div class="card-content">
+          <h3>PCI DSS Compliance Audit</h3>
+          <p>Payment Card Industry Data Security Standard compliance assessment for payment gateway.</p>
+          <div class="tags">
+            <span>PCI DSS</span>
+            <span>Payment Security</span>
+            <span>Compliance</span>
+          </div>
+          <div class="card-footer">
+            <span class="project-date">📅 Jun 2025</span>
+            <button class="view-btn" onclick="openProjectModal('project8')">View Details →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 9 -->
+      <div class="portfolio-card" data-category="development">
+        <div class="card-image">
+          <div class="project-badge">Featured</div>
+          <div class="project-icon">🌟</div>
+        </div>
+        <div class="card-content">
+          <h3>SecureSphere Platform</h3>
+          <p>Full-stack cybersecurity learning platform with interactive labs and gamification.</p>
+          <div class="tags">
+            <span>Full Stack</span>
+            <span>Node.js</span>
+            <span>Education</span>
+          </div>
+          <div class="card-footer">
+            <span class="project-date">📅 Jan 2026</span>
+            <button class="view-btn" onclick="openProjectModal('project9')">View Details →</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 📬 CONTACT SECTION -->
+  <section class="contact-section">
+    <div class="contact-container">
+      <div class="contact-info">
+        <h2>🤝 Let's Work Together</h2>
+        <p>Interested in collaborating on a cybersecurity project? Get in touch!</p>
+        <div class="info-items">
+          <div class="info-item">
+            <span class="info-icon">📧</span>
+            <div>
+              <strong>Email</strong>
+              <p>contact@securesphere.com</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">💼</span>
+            <div>
+              <strong>LinkedIn</strong>
+              <p>linkedin.com/company/securesphere</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">🌐</span>
+            <div>
+              <strong>Website</strong>
+              <p>www.securesphere.com</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form-container">
+        <form id="portfolioContactForm" class="contact-form">
+          <div class="form-group">
+            <label for="name">Name *</label>
+            <input type="text" id="name" name="name" required placeholder="Your full name">
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+          </div>
+
+          <div class="form-group">
+            <label for="project">Project Type *</label>
+            <select id="project" name="project" required>
+              <option value="">Select project type</option>
+              <option value="penetration">Penetration Testing</option>
+              <option value="audit">Security Audit</option>
+              <option value="compliance">Compliance Assessment</option>
+              <option value="consulting">Security Consulting</option>
+              <option value="training">Security Training</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message *</label>
+            <textarea id="message" name="message" rows="4" required
+              placeholder="Tell us about your project requirements..."></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn">
+            <span class="btn-text">Send Message</span>
+            <span class="btn-icon">→</span>
+          </button>
+        </form>
+
+        <div id="formMessage" class="form-message"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🔍 PROJECT MODAL -->
+  <div id="projectModal" class="modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeProjectModal()">×</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- ⚫ FOOTER -->
+ 
+    <div class="footer-bottom">
+      © 2026 SecureSphere | Educate. Defend. Secure.
+    </div>
+  </footer>
+
+  <script src="portfolio.js"></script>
+
+</body>
+
+</html>
