@@ -142,7 +142,7 @@ if (contactForm) {
         submitBtn.disabled = true;
 
         try {
-            const response = await fetch('http://localhost:3000/api/contact', {
+            const response = await fetch('/api/contact', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -154,11 +154,7 @@ if (contactForm) {
 
             if (response.ok) {
                 formMessage.className = 'form-message success';
-                formMessage.innerHTML = `
-          ✅ <strong>Thank you for reaching out!</strong><br>
-          Your message has been received. Ticket ID: <strong>${result.ticketId}</strong><br>
-          We'll contact you at <strong>${formData.email}</strong> within 24 hours.
-        `;
+                formMessage.innerHTML = `✅ ${result.message}`;
                 contactForm.reset();
                 showToast('Message sent successfully! 🎉');
             } else {
