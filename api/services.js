@@ -172,8 +172,8 @@ module.exports = async (req, res) => {
         }
     ];
 
-    // GET /api/services
-    if (url === '/api/services' && req.method === 'GET') {
+    // GET /api/services - Return services catalog
+    if (req.method === 'GET') {
         return res.status(200).json(services);
     }
 

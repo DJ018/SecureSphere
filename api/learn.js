@@ -185,15 +185,10 @@ module.exports = async (req, res) => {
         ]
     };
 
-    // GET /api/learn/module/:moduleId
-    if (url.match(/\/module\/[^/]+$/) && req.method === 'GET') {
-        const moduleId = url.split('/module/')[1];
-
-        if (modules[moduleId]) {
-            return res.status(200).json(modules[moduleId]);
-        } else {
-            return res.status(404).json({ error: "Module not found" });
-        }
+    // GET /api/learn - Return basics module by default
+    if (req.method === 'GET') {
+        // Return basics module as default
+        return res.status(200).json(modules["basics"]);
     }
 
     // POST /api/learn/quiz
