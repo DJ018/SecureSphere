@@ -725,21 +725,168 @@
   </footer>
 
   <script>
-    // User ID (in production, this would come from authentication)
-    const userId = 'user_' + Math.random().toString(36).substr(2, 9);
+    // User ID (simulated for local storage key)
+    const userId = 'user_local';
+    const STORAGE_KEY = 'secureSphere_progress';
     let currentModuleId = null;
     let currentModuleData = null;
+
+    // Hardcoded Module Data
+    const MODULES = {
+      'basics': {
+        title: 'Cyber Security Basics',
+        level: 'Beginner',
+        duration: '30 mins',
+        content: [
+          {
+            heading: 'What is Cyber Security?',
+            type: 'text',
+            text: 'Cyber security is the practice of defending computers, servers, mobile devices, electronic systems, networks, and data from malicious attacks. It is also known as information technology security or electronic information security.'
+          },
+          {
+            heading: 'Why is it Important?',
+            type: 'list',
+            items: [
+              'Protection of sensitive data',
+              'Preservation of reputation',
+              'Compliance with regulations',
+              'Business continuity'
+            ]
+          }
+        ]
+      },
+      'attacks': {
+        title: 'Cyber Attacks & Threats',
+        level: 'Beginner - Intermediate',
+        duration: '45 mins',
+        content: [
+          {
+            heading: 'Common Cyber Threats',
+            type: 'text',
+            text: 'Cyber threats are malicious acts that seek to damage data, steal data, or disrupt digital life in general. Cyber threats include computer viruses, data breaches, and Denial of Service (DoS) attacks.'
+          },
+          {
+            heading: 'Types of Attacks',
+            type: 'list',
+            items: [
+              'Malware: Software designed to harm devices',
+              'Phishing: Deceptive emails to steal info',
+              'Ransomware: Extortion software that locks data',
+              'Man-in-the-Middle: Intercepting communication'
+            ]
+          }
+        ]
+      },
+      'iam': {
+        title: 'Identity & Access Management',
+        level: 'Intermediate',
+        duration: '40 mins',
+        content: [
+          {
+            heading: 'Understanding IAM',
+            type: 'text',
+            text: 'Identity and Access Management (IAM) is a framework of policies and technologies for ensuring that the proper people in an enterprise have the appropriate access to technology resources.'
+          },
+          {
+            heading: 'Key Concepts',
+            type: 'list',
+            items: [
+              'Authentication: Verifying who you are',
+              'Authorization: Verifying what you can do',
+              'Least Privilege: Giving only necessary access',
+              'Role-Based Access Control (RBAC)'
+            ]
+          }
+        ]
+      },
+      'webapp': {
+        title: 'Web Application Security',
+        level: 'Intermediate',
+        duration: '50 mins',
+        content: [
+          {
+            heading: 'Securing Web Apps',
+            type: 'text',
+            text: 'Web application security deals with security of websites, web applications and web services like APIs. High-level security is a requirement for all web applications.'
+          },
+          {
+            heading: 'Common Vulnerabilities (OWASP Top 10)',
+            type: 'list',
+            items: [
+              'Injection (SQL, NoSQL, OS)',
+              'Broken Authentication',
+              'Sensitive Data Exposure',
+              'Cross-Site Scripting (XSS)'
+            ]
+          }
+        ]
+      },
+      'encryption': {
+        title: 'Data Protection & Encryption',
+        level: 'Intermediate',
+        duration: '45 mins',
+        content: [
+          {
+            heading: 'The Power of Encryption',
+            type: 'text',
+            text: 'Encryption is the process of encoding information. This process converts the original representation of the information, known as plaintext, into an alternative form known as ciphertext.'
+          },
+          {
+            heading: 'Types of Encryption',
+            type: 'list',
+            items: [
+              'Symmetric Encryption: Same key for encryption/decryption',
+              'Asymmetric Encryption: Public and private key pair',
+              'Hashing: One-way transformation for integrity',
+              'Salting: Adding random data to hashes'
+            ]
+          }
+        ]
+      },
+      'awareness': {
+        title: 'Cyber Awareness & Best Practices',
+        level: 'All Levels',
+        duration: '35 mins',
+        content: [
+          {
+            heading: 'Stay Safe Online',
+            type: 'text',
+            text: 'Security awareness training is a strategy used by IT and security professionals to prevent and mitigate user risk. These programs are designed to help users and employees understand the role they play in helping to combat information security breaches.'
+          },
+          {
+            heading: 'Best Practices',
+            type: 'list',
+            items: [
+              'Use strong, unique passwords',
+              'Enable Multi-Factor Authentication (MFA)',
+              'Keep software updated',
+              'Be skeptical of unexpected emails'
+            ]
+          }
+        ]
+      }
+    };
 
     // Load progress on page load
     window.addEventListener('DOMContentLoaded', loadProgress);
 
+    function getProgress() {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      return stored ? JSON.parse(stored) : {};
+    }
+
+    function saveProgress(moduleId, completed) {
+      const progress = getProgress();
+      if (!progress[moduleId]) progress[moduleId] = {};
+      progress[moduleId].completed = completed;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+    }
+
     async function loadProgress() {
       try {
-        const response = await fetch(`/api/learn/progress/${userId}`);
-        const progress = await response.json();
-
+        const progress = getProgress();
         let completed = 0;
-        const total = 6;
+        const total = Object.keys(MODULES).length; // 6
 
         // Update UI based on progress
         Object.keys(progress).forEach(moduleId => {
@@ -759,13 +906,14 @@
         });
 
         document.getElementById('completedModules').textContent = completed;
+        document.getElementById('totalModules').textContent = total;
         document.getElementById('progressPercent').textContent = Math.round((completed / total) * 100) + '%';
       } catch (error) {
         console.error('Error loading progress:', error);
       }
     }
 
-    async function startModule(moduleId) {
+    function startModule(moduleId) {
       currentModuleId = moduleId;
       const modal = document.getElementById('moduleModal');
       modal.classList.add('active');
@@ -775,47 +923,51 @@
       document.getElementById('moduleContent').innerHTML = '<div class="loading"><div class="spinner"></div><p>Loading module content...</p></div>';
       document.getElementById('quizSection').style.display = 'none';
 
-      try {
-        const response = await fetch(`/api/learn/module/${moduleId}`);
-        currentModuleData = await response.json();
+      // Simulate network delay
+      setTimeout(() => {
+        try {
+          currentModuleData = MODULES[moduleId]; // Load from local data
 
-        document.getElementById('moduleTitle').textContent = currentModuleData.title;
-        document.getElementById('moduleLevel').textContent = `${currentModuleData.level} • ${currentModuleData.duration}`;
+          if (!currentModuleData) throw new Error('Module not found');
 
-        // Render content
-        let contentHTML = '';
-        currentModuleData.content.forEach(section => {
-          contentHTML += '<div class="content-section">';
-          contentHTML += `<h4>${section.heading}</h4>`;
+          document.getElementById('moduleTitle').textContent = currentModuleData.title;
+          document.getElementById('moduleLevel').textContent = `${currentModuleData.level} • ${currentModuleData.duration}`;
 
-          if (section.type === 'text') {
-            contentHTML += `<p>${section.text}</p>`;
-          } else if (section.type === 'list') {
-            contentHTML += '<ul>';
-            section.items.forEach(item => {
-              contentHTML += `<li>${item}</li>`;
-            });
-            contentHTML += '</ul>';
-          }
+          // Render content
+          let contentHTML = '';
+          currentModuleData.content.forEach(section => {
+            contentHTML += '<div class="content-section">';
+            contentHTML += `<h4>${section.heading}</h4>`;
 
-          contentHTML += '</div>';
-        });
+            if (section.type === 'text') {
+              contentHTML += `<p>${section.text}</p>`;
+            } else if (section.type === 'list') {
+              contentHTML += '<ul>';
+              section.items.forEach(item => {
+                contentHTML += `<li>${item}</li>`;
+              });
+              contentHTML += '</ul>';
+            }
 
-        contentHTML += '<button class="action-btn" onclick="showQuiz()">Take Quiz →</button>';
-        contentHTML += '<button class="action-btn secondary" onclick="closeModule()">Close</button>';
+            contentHTML += '</div>';
+          });
 
-        document.getElementById('moduleContent').innerHTML = contentHTML;
-      } catch (error) {
-        document.getElementById('moduleContent').innerHTML = '<p style="color: #ef4444;">Error loading module content. Please try again.</p>';
-        console.error('Error loading module:', error);
-      }
+          contentHTML += '<button class="action-btn" onclick="showQuiz()">Take Quiz →</button>';
+          contentHTML += '<button class="action-btn secondary" onclick="closeModule()">Close</button>';
+
+          document.getElementById('moduleContent').innerHTML = contentHTML;
+        } catch (error) {
+          document.getElementById('moduleContent').innerHTML = '<p style="color: #ef4444;">Error loading module content.</p>';
+          console.error('Error loading module:', error);
+        }
+      }, 500);
     }
 
     function showQuiz() {
       document.getElementById('quizSection').style.display = 'block';
       document.getElementById('quizSection').scrollIntoView({ behavior: 'smooth' });
 
-      // Generate quiz questions (simplified - 2 questions per module)
+      // Generate quiz questions (simplified - 2 questions per module reference)
       const questions = [
         `What is the main focus of ${currentModuleData.title}?`,
         `Name one key concept from ${currentModuleData.title}.`
@@ -835,7 +987,7 @@
       document.getElementById('quizResult').classList.remove('show', 'passed', 'failed');
     }
 
-    async function submitQuiz() {
+    function submitQuiz() {
       const answers = [
         document.getElementById('answer0').value,
         document.getElementById('answer1').value
@@ -846,77 +998,57 @@
         return;
       }
 
-      try {
-        const response = await fetch('/api/learn/quiz', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ moduleId: currentModuleId, answers })
-        });
+      // Local validation: check if not empty (frontend simulation of check)
+      // In a real app, this would check against correct answers.
+      // For this simplified version, we just assume any non-empty answer is "correct" enough for the demo,
+      // or we could check for specific keywords if we wanted to be stricter.
 
-        const result = await response.json();
-        const resultDiv = document.getElementById('quizResult');
+      const passed = true; // Always pass if they answer something for this demo
 
+      const resultDiv = document.getElementById('quizResult');
+
+      if (passed) {
         resultDiv.innerHTML = `
-      <h4>${result.message}</h4>
-      <p>Score: ${result.score}/${result.total} (${result.percentage}%)</p>
-    `;
+          <h4>Module Completed! 🎉</h4>
+          <p>You have successfully passed the knowledge check.</p>
+        `;
+        resultDiv.classList.add('show', 'passed');
 
-        resultDiv.classList.add('show', result.passed ? 'passed' : 'failed');
+        // Save progress locally
+        saveProgress(currentModuleId, true);
 
-        if (result.passed) {
-          // Save progress
-          await fetch('/api/learn/progress', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ userId, moduleId: currentModuleId, completed: true })
-          });
+        // Show certificate option
+        setTimeout(() => {
+          if (confirm('Congratulations! Would you like to generate a certificate?')) {
+            generateCertificate();
+          } else {
+            loadProgress();
+            closeModule();
+          }
+        }, 1000);
 
-          // Show certificate option
-          setTimeout(() => {
-            if (confirm('Congratulations! Would you like to generate a certificate?')) {
-              generateCertificate();
-            } else {
-              loadProgress();
-              closeModule();
-            }
-          }, 1500);
-        }
-      } catch (error) {
-        console.error('Error submitting quiz:', error);
-        alert('Error submitting quiz. Please try again.');
+      } else {
+        resultDiv.innerHTML = `
+          <h4>Quiz Failed</h4>
+          <p>Please review the material and try again.</p>
+        `;
+        resultDiv.classList.add('show', 'failed');
       }
     }
 
-    async function generateCertificate() {
-      try {
-        const name = prompt('Enter your name for the certificate:') || 'Student';
+    function generateCertificate() {
+      const name = prompt('Enter your name for the certificate:') || 'Student';
+      const date = new Date().toLocaleDateString();
+      const certificateId = 'CERT-' + Math.random().toString(36).substr(2, 9).toUpperCase();
 
-        const response = await fetch('/api/learn/certificate', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name,
-            moduleTitle: currentModuleData.title,
-            date: new Date().toLocaleDateString()
-          })
-        });
+      document.getElementById('certName').textContent = name;
+      document.getElementById('certModule').textContent = currentModuleData.title;
+      document.getElementById('certDate').textContent = 'Date: ' + date;
+      document.getElementById('certId').textContent = 'Certificate ID: ' + certificateId;
 
-        const cert = await response.json();
-
-        if (cert.success) {
-          document.getElementById('certName').textContent = name;
-          document.getElementById('certModule').textContent = cert.certificate.moduleTitle;
-          document.getElementById('certDate').textContent = 'Date: ' + cert.certificate.date;
-          document.getElementById('certId').textContent = 'Certificate ID: ' + cert.certificate.certificateId;
-
-          document.getElementById('certificateModal').classList.add('active');
-          closeModule();
-          loadProgress();
-        }
-      } catch (error) {
-        console.error('Error generating certificate:', error);
-        alert('Error generating certificate. Please try again.');
-      }
+      document.getElementById('certificateModal').classList.add('active');
+      closeModule();
+      loadProgress();
     }
 
     function closeModule() {

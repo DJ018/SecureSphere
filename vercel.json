@@ -1,31 +1,59 @@
 {
-    "version": 2,
-    "builds": [
+    "rewrites": [
         {
-            "src": "*.html",
-            "use": "@vercel/static"
+            "source": "/api/learn/:path*",
+            "destination": "/api/learn"
         },
         {
-            "src": "*.css",
-            "use": "@vercel/static"
+            "source": "/api/services/:path*",
+            "destination": "/api/services"
         },
         {
-            "src": "*.js",
-            "use": "@vercel/static"
+            "source": "/api/games/:path*",
+            "destination": "/api/games"
         },
         {
-            "src": "api/**/*.js",
-            "use": "@vercel/node"
+            "source": "/api/sql",
+            "destination": "/api/lab-challenges"
+        },
+        {
+            "source": "/api/phish",
+            "destination": "/api/lab-challenges"
+        },
+        {
+            "source": "/api/password",
+            "destination": "/api/lab-challenges"
+        },
+        {
+            "source": "/api/network",
+            "destination": "/api/lab-challenges"
+        },
+        {
+            "source": "/api/iam",
+            "destination": "/api/lab-challenges"
+        },
+        {
+            "source": "/api/malware",
+            "destination": "/api/lab-challenges"
         }
     ],
-    "routes": [
+    "headers": [
         {
-            "src": "/api/(.*)",
-            "dest": "/api/$1"
-        },
-        {
-            "src": "/(.*)",
-            "dest": "/$1"
+            "source": "/api/(.*)",
+            "headers": [
+                {
+                    "key": "Access-Control-Allow-Origin",
+                    "value": "*"
+                },
+                {
+                    "key": "Access-Control-Allow-Methods",
+                    "value": "GET,POST,OPTIONS"
+                },
+                {
+                    "key": "Access-Control-Allow-Headers",
+                    "value": "Content-Type"
+                }
+            ]
         }
     ]
 }

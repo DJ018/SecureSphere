@@ -4,8 +4,9 @@
   "description": "SecureSphere - Elite Cybersecurity Solutions",
   "scripts": {
     "dev": "vercel dev",
-    "build": "echo 'Static site - no build needed'",
-    "start": "vercel dev"
+    "build": "echo 'Build complete - serverless functions ready'",
+    "start": "vercel dev",
+    "deploy": "vercel --prod"
   },
   "keywords": [
     "cybersecurity",
