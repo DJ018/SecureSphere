@@ -1,40 +1,17 @@
+```json
 {
     "rewrites": [
         {
-            "source": "/api/learn/:path*",
+            "source": "/api/learn/(.*)",
             "destination": "/api/learn"
         },
         {
-            "source": "/api/services/:path*",
+            "source": "/api/services/(.*)",
             "destination": "/api/services"
         },
         {
-            "source": "/api/games/:path*",
+            "source": "/api/games/(.*)",
             "destination": "/api/games"
-        },
-        {
-            "source": "/api/sql",
-            "destination": "/api/lab-challenges"
-        },
-        {
-            "source": "/api/phish",
-            "destination": "/api/lab-challenges"
-        },
-        {
-            "source": "/api/password",
-            "destination": "/api/lab-challenges"
-        },
-        {
-            "source": "/api/network",
-            "destination": "/api/lab-challenges"
-        },
-        {
-            "source": "/api/iam",
-            "destination": "/api/lab-challenges"
-        },
-        {
-            "source": "/api/malware",
-            "destination": "/api/lab-challenges"
         }
     ],
     "headers": [
