@@ -1,16 +1,3 @@
 {
-    "rewrites": [
-        {
-            "source": "/api/learn/(.*)",
-            "destination": "/api/learn"
-        },
-        {
-            "source": "/api/services/(.*)",
-            "destination": "/api/services"
-        },
-        {
-            "source": "/api/games/(.*)",
-            "destination": "/api/games"
-        }
-    ]
+    "version": 2
 }
