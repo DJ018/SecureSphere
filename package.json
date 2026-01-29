@@ -2,12 +2,6 @@
   "name": "securesphere",
   "version": "1.0.0",
   "description": "SecureSphere - Elite Cybersecurity Solutions",
-  "scripts": {
-    "dev": "vercel dev",
-    "build": "echo 'Build complete - serverless functions ready'",
-    "start": "vercel dev",
-    "deploy": "vercel --prod"
-  },
   "keywords": [
     "cybersecurity",
     "security",
@@ -15,8 +9,5 @@
     "penetration-testing"
   ],
   "author": "SecureSphere",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^4.18.2"
-  }
+  "license": "ISC"
 }
