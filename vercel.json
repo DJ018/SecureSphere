@@ -1,13 +1,9 @@
 {
     "version": 2,
-    "rewrites": [
+    "builds": [
         {
-            "source": "/api/learn/module/:moduleId",
-            "destination": "/api/learn/module/[moduleId].js"
-        },
-        {
-            "source": "/api/games/questions/:gameType",
-            "destination": "/api/games/questions/[gameType].js"
+            "src": "api/**/*.js",
+            "use": "@vercel/node"
         }
     ]
 }
