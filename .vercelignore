@@ -1,7 +1,17 @@
-node_modules
-.env
-.DS_Store
+# Ignore old individual API files - use consolidated versions
+api/sql.js
+api/phish.js
+api/password.js
+api/network.js
+api/iam.js
+api/malware.js
+api/labs.js
+api/lab-challenges.js
+api/learn.js
+api/learn/
+api/games.js
+api/games/
 server.js
-api_legacy
-*.log
-.vercel
+api_legacy/
+node_modules/
+.env

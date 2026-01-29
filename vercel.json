@@ -1,9 +1,17 @@
 {
     "version": 2,
-    "builds": [
-        {
-            "src": "api/**/*.js",
-            "use": "@vercel/node"
+    "functions": {
+        "api/labs-all.js": {
+            "memory": 1024,
+            "maxDuration": 10
+        },
+        "api/learn-all.js": {
+            "memory": 1024,
+            "maxDuration": 10
+        },
+        "api/games-all.js": {
+            "memory": 1024,
+            "maxDuration": 10
         }
-    ]
+    }
 }
