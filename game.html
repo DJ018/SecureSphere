@@ -1009,16 +1009,19 @@
 
         const leaderboardList = document.getElementById('leaderboardList');
 
-        if (data.leaderboard.length === 0) {
+        // Handle both success response format and direct array
+        const leaderboardData = data.success ? data.leaderboard : (Array.isArray(data) ? data : []);
+
+        if (!leaderboardData || leaderboardData.length === 0) {
           leaderboardList.innerHTML = '<li style="text-align: center; color: #64748b;">No scores yet. Be the first!</li>';
           return;
         }
 
-        leaderboardList.innerHTML = data.leaderboard.map((entry, index) => `
+        leaderboardList.innerHTML = leaderboardData.map((entry, index) => `
       <li class="leaderboard-item">
         <span class="leaderboard-rank">#${index + 1}</span>
-        <span class="leaderboard-name">${entry.username}</span>
-        <span class="leaderboard-score">${entry.score}/${entry.totalQuestions} (${entry.percentage}%)</span>
+        <span class="leaderboard-name">${entry.playerName || entry.username || 'Anonymous'}</span>
+        <span class="leaderboard-score">${entry.score}/${entry.totalQuestions || 10} (${Math.round((entry.score / (entry.totalQuestions || 10)) * 100)}%)</span>
       </li>
     `).join('');
       } catch (error) {
@@ -1338,14 +1341,59 @@
     // Finish game and show analysis
     async function finishGame() {
       const timeTaken = Math.round((Date.now() - startTime) / 1000);
+      const percentage = Math.round((score / questions.length) * 100);
+
+      // Generate analysis locally
+      let performance, gameInsights;
+      const strengths = [];
+      const weaknesses = [];
+      const recommendations = [];
+
+      if (percentage >= 90) {
+        performance = '🏆 Master';
+        gameInsights = 'Outstanding performance! You have expert-level cybersecurity knowledge.';
+        strengths.push('Excellent understanding of security concepts');
+        strengths.push('Quick and accurate decision making');
+        recommendations.push('Consider pursuing advanced certifications like CISSP or CEH');
+      } else if (percentage >= 75) {
+        performance = '🥇 Expert';
+        gameInsights = 'Great job! You have strong cybersecurity awareness.';
+        strengths.push('Good grasp of fundamental security principles');
+        if (percentage < 90) weaknesses.push('Some advanced concepts need review');
+        recommendations.push('Review the learning modules for topics you missed');
+      } else if (percentage >= 60) {
+        performance = '🥈 Proficient';
+        gameInsights = 'Good work! You\'re building solid security knowledge.';
+        strengths.push('Understanding basic security concepts');
+        weaknesses.push('Need more practice with advanced scenarios');
+        recommendations.push('Complete all learning modules to strengthen your knowledge');
+        recommendations.push('Practice with more security labs');
+      } else {
+        performance = '🥉 Learner';
+        gameInsights = 'Keep learning! Cybersecurity is a journey.';
+        weaknesses.push('Need to strengthen fundamental security concepts');
+        weaknesses.push('More practice needed with threat identification');
+        recommendations.push('Start with the Cyber Security Basics learning module');
+        recommendations.push('Practice daily with security awareness content');
+        recommendations.push('Join cybersecurity communities for continuous learning');
+      }
+
+      const analysis = {
+        performance,
+        percentage,
+        gameInsights,
+        strengths,
+        weaknesses,
+        recommendations
+      };
 
       try {
-        // Submit to backend for analysis
-        const response = await fetch(`${API_URL}/api/games/submit`, {
+        // Submit to backend
+        const submitResponse = await fetch(`${API_URL}/api/games/submit`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            username: currentUser,
+            playerName: currentUser,
             gameType: currentGameType,
             score: score,
             totalQuestions: questions.length,
@@ -1354,18 +1402,17 @@
           })
         });
 
-        const data = await response.json();
-        const analysis = data.analysis;
-
         // Add to leaderboard
         await fetch(`${API_URL}/api/games/leaderboard`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            username: currentUser,
+            playerName: currentUser,
             gameType: currentGameType,
             score: score,
-            totalQuestions: questions.length
+            totalQuestions: questions.length,
+            accuracy: percentage,
+            timeSpent: timeTaken
           })
         });
 
@@ -1410,7 +1457,45 @@
         showScreen('analysisScreen');
       } catch (error) {
         console.error('Error submitting game:', error);
-        alert('Error submitting game results. Please try again.');
+        // Still show analysis even if submission fails
+        const analysisContent = document.getElementById('analysisContent');
+        analysisContent.innerHTML = `
+      <div class="score-display">${score}/${questions.length}</div>
+      <div class="performance-badge">${analysis.performance}</div>
+      <p style="font-size: 1.2rem; margin: 20px 0;">Percentage: ${analysis.percentage}%</p>
+      <p style="color: #94a3b8; margin-bottom: 30px;">Time Taken: ${timeTaken} seconds</p>
+      <p style="color: #ff9d4d; margin-bottom: 20px;">⚠️ Score not saved to leaderboard (offline mode)</p>
+      
+      ${analysis.gameInsights ? `<p style="color: #00e5ff; margin-bottom: 20px;">${analysis.gameInsights}</p>` : ''}
+      
+      ${analysis.strengths.length > 0 ? `
+        <div class="analysis-section">
+          <h3>💪 Strengths</h3>
+          <ul>
+            ${analysis.strengths.map(s => `<li>${s}</li>`).join('')}
+          </ul>
+        </div>
+      ` : ''}
+      
+      ${analysis.weaknesses.length > 0 ? `
+        <div class="analysis-section">
+          <h3>📚 Areas for Improvement</h3>
+          <ul>
+            ${analysis.weaknesses.map(w => `<li>${w}</li>`).join('')}
+          </ul>
+        </div>
+      ` : ''}
+      
+      ${analysis.recommendations.length > 0 ? `
+        <div class="analysis-section">
+          <h3>🎯 Recommendations</h3>
+          <ul>
+            ${analysis.recommendations.map(r => `<li>${r}</li>`).join('')}
+          </ul>
+        </div>
+      ` : ''}
+    `;
+        showScreen('analysisScreen');
       }
     }
 

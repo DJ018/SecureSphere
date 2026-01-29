@@ -1,3 +1,13 @@
 {
-    "version": 2
+    "version": 2,
+    "rewrites": [
+        {
+            "source": "/api/learn/module/:moduleId",
+            "destination": "/api/learn/module/[moduleId].js"
+        },
+        {
+            "source": "/api/games/questions/:gameType",
+            "destination": "/api/games/questions/[gameType].js"
+        }
+    ]
 }

@@ -1,4 +1,4 @@
-// Testimonials API - Serverless Function
+// Testimonials API
 module.exports = async (req, res) => {
     // Set CORS headers
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -11,7 +11,6 @@ module.exports = async (req, res) => {
         return res.status(200).end();
     }
 
-    // Testimonials data
     const testimonials = [
         {
             id: 1,
@@ -55,6 +54,5 @@ module.exports = async (req, res) => {
         }
     ];
 
-    // Return testimonials
     return res.status(200).json(testimonials);
 };
