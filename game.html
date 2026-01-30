@@ -1026,7 +1026,13 @@
     `).join('');
       } catch (error) {
         console.error('Error loading leaderboard:', error);
-        document.getElementById('leaderboardList').innerHTML = '<li style="text-align: center; color: #ff4d4d;">Error loading leaderboard</li>';
+        document.getElementById('leaderboardList').innerHTML = `
+          <li style="text-align: center; color: #94a3b8; padding: 20px;">
+            <div style="margin-bottom: 10px;">📊</div>
+            Leaderboard temporarily unavailable<br>
+            <small style="color: #64748b;">Your scores will still be saved when you play!</small>
+          </li>
+        `;
       }
     }
 
@@ -1053,7 +1059,22 @@
         }
       } catch (error) {
         console.error('Error loading questions:', error);
-        document.getElementById('gameContent').innerHTML = '<p style="color: #ff4d4d; text-align: center;">Error loading questions. Please make sure the server is running.</p>';
+        document.getElementById('gameContent').innerHTML = `
+          <div style="text-align: center; padding: 40px;">
+            <div style="font-size: 4rem; margin-bottom: 20px;">⚠️</div>
+            <h2 style="color: #ff9d4d; margin-bottom: 20px;">Unable to Load Game</h2>
+            <p style="color: #94a3b8; font-size: 1.1rem; line-height: 1.6; margin-bottom: 30px;">
+              The game backend is currently unavailable. This could be because:
+            </p>
+            <div style="text-align: left; max-width: 600px; margin: 0 auto 30px; background: rgba(30, 41, 59, 0.6); padding: 25px; border-radius: 12px;">
+              <p style="margin-bottom: 15px;">🌐 <strong>Testing Locally?</strong> The games only work when deployed to Vercel.</p>
+              <p style="margin-bottom: 15px;">🔄 <strong>Just Deployed?</strong> Wait 1-2 minutes for the API to initialize.</p>
+              <p style="margin-bottom: 0;">📡 <strong>Network Issue?</strong> Check your internet connection and try again.</p>
+            </div>
+            <button onclick="location.reload()" style="margin-right: 10px;">🔄 Retry</button>
+            <button class="secondary" onclick="backToGames()">⬅ Back</button>
+          </div>
+        `;
       }
     }
 
