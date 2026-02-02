@@ -9,8 +9,6 @@ api/labs.js
 api/lab-challenges.js
 api/learn.js
 api/learn/
-api/games.js
-api/games/
 server.js
 api_legacy/
 node_modules/
