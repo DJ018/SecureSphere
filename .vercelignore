@@ -1,14 +1,4 @@
-# Ignore old individual API files - use consolidated versions
-api/sql.js
-api/phish.js
-api/password.js
-api/network.js
-api/iam.js
-api/malware.js
-api/labs.js
-api/lab-challenges.js
-api/learn.js
-api/learn/
+# Ignore old/unused files only
 server.js
 api_legacy/
 node_modules/
