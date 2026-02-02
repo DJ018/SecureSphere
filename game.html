@@ -1004,7 +1004,7 @@
     // Load leaderboard
     async function loadLeaderboard() {
       try {
-        const response = await fetch(`${API_URL}/api/games-all/leaderboard`);
+        const response = await fetch(`${API_URL}/api/games/leaderboard`);
         const data = await response.json();
 
         const leaderboardList = document.getElementById('leaderboardList');
@@ -1048,7 +1048,7 @@
       document.getElementById('gameContent').innerHTML = '<div class="loading"><div class="spinner"></div><p>Loading questions...</p></div>';
 
       try {
-        const response = await fetch(`${API_URL}/api/games-all/questions/${gameType}?count=10`);
+        const response = await fetch(`${API_URL}/api/games/questions/${gameType}?count=10`);
         const data = await response.json();
         questions = data.questions;
 
@@ -1410,7 +1410,7 @@
 
       try {
         // Submit to backend
-        const submitResponse = await fetch(`${API_URL}/api/games-all/submit`, {
+        const submitResponse = await fetch(`${API_URL}/api/games/submit`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -1424,7 +1424,7 @@
         });
 
         // Add to leaderboard
-        await fetch(`${API_URL}/api/games-all/leaderboard`, {
+        await fetch(`${API_URL}/api/games/leaderboard`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
