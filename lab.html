@@ -958,7 +958,7 @@
             }
 
             try {
-                const res = await fetch("/api/sql", {
+                const res = await fetch("/api/labs-all/sql", {
                     method: "POST",
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ payload })
@@ -974,7 +974,7 @@
         // Phishing Detection Lab
         async function phishLab(ans) {
             try {
-                const res = await fetch("/api/phish", {
+                const res = await fetch("/api/labs-all/phish", {
                     method: "POST",
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ answer: ans })
@@ -996,7 +996,7 @@
             }
 
             try {
-                const res = await fetch("/api/password", {
+                const res = await fetch("/api/labs-all/password", {
                     method: "POST",
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ password })
@@ -1014,7 +1014,7 @@
             displayResult('netResult', '🔄 Scanning network...', 'info');
 
             try {
-                const res = await fetch("/api/network");
+                const res = await fetch("/api/labs-all/network");
                 const data = await res.json();
                 setTimeout(() => {
                     displayResult('netResult', data.result, 'success');
@@ -1033,7 +1033,7 @@
             }
 
             try {
-                const res = await fetch("/api/iam", {
+                const res = await fetch("/api/labs-all/iam", {
                     method: "POST",
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ role })
@@ -1055,7 +1055,7 @@
             }
 
             try {
-                const res = await fetch("/api/malware", {
+                const res = await fetch("/api/labs-all/malware", {
                     method: "POST",
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ behavior })
