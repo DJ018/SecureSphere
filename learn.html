@@ -11,6 +11,9 @@
     href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Inter:wght@400;500;600;700&display=swap"
     rel="stylesheet">
 
+  <!-- html2pdf library for PDF generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
   <style>
     * {
       margin: 0;
@@ -611,21 +614,7 @@
       border: 1px solid rgba(34, 211, 238, 0.2);
     }
 
-    .cert-seal {
-      position: absolute;
-      bottom: 30px;
-      right: 60px;
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #22d3ee 0%, #3b82f6 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 24px;
-      box-shadow: 0 4px 15px rgba(34, 211, 238, 0.4);
-    }
+
 
     .cert-actions {
       margin-top: 30px;
@@ -816,9 +805,7 @@
   <!-- CERTIFICATE MODAL -->
   <div id="certificateModal" class="certificate-modal">
     <div class="certificate-content" id="certificateContent">
-      <img
-        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cdefs%3E%3ClinearGradient id='grad1' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%2322d3ee;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%233b82f6;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='100' cy='100' r='95' fill='url(%23grad1)' opacity='0.1'/%3E%3Cpath d='M100 30 L130 60 L170 60 L140 90 L150 130 L100 110 L50 130 L60 90 L30 60 L70 60 Z' fill='url(%23grad1)' stroke='%2322d3ee' stroke-width='3'/%3E%3Ccircle cx='100' cy='100' r='25' fill='%23020617'/%3E%3Cpath d='M100 85 L100 95 M95 100 L105 100' stroke='%2322d3ee' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M85 95 Q85 85 95 85 L105 85 Q115 85 115 95 L115 105 Q115 115 105 115 L95 115 Q85 115 85 105 Z' fill='none' stroke='%2322d3ee' stroke-width='2'/%3E%3C/svg%3E"
-        class="cert-logo" alt="SecureSphere Logo">
+      <img src="securesphere-logo.jpg" class="cert-logo" alt="SecureSphere Logo">
 
       <div class="cert-header">
         <div class="cert-org-name">SecureSphere</div>
@@ -835,8 +822,6 @@
         <div class="cert-date" id="certDate">Date: </div>
         <div class="cert-id" id="certId">Certificate ID: </div>
       </div>
-
-      <div class="cert-seal">✓</div>
 
       <div class="cert-actions">
         <button class="action-btn" onclick="downloadCertificate()">📥 Download Certificate</button>
@@ -1237,57 +1222,26 @@
     }
 
     function downloadCertificate() {
-      // Create a temporary link to download the certificate as HTML
-      const certificateContent = document.getElementById('certificateContent').cloneNode(true);
+      // Use html2pdf library to generate PDF
+      const element = document.getElementById('certificateContent');
+      const certId = document.getElementById('certId').textContent.replace('Certificate ID: ', '');
 
-      // Remove action buttons from the clone
-      const actions = certificateContent.querySelector('.cert-actions');
+      // Clone and remove action buttons
+      const clone = element.cloneNode(true);
+      const actions = clone.querySelector('.cert-actions');
       if (actions) actions.remove();
 
-      const htmlContent = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>SecureSphere Certificate</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { 
-      font-family: 'Inter', sans-serif; 
-      display: flex; 
-      justify-content: center; 
-      align-items: center; 
-      min-height: 100vh; 
-      background: #f1f5f9;
-      padding: 20px;
-    }
-    ${document.querySelector('style').textContent}
-    .certificate-content { 
-      position: relative; 
-      margin: 0;
-    }
-    @media print {
-      body { background: white; }
-      .certificate-content { box-shadow: none; }
-    }
-  </style>
-</head>
-<body>
-  ${certificateContent.outerHTML}
-</body>
-</html>
-      `;
+      // PDF options
+      const opt = {
+        margin: 10,
+        filename: `SecureSphere_Certificate_${certId}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+      };
 
-      const blob = new Blob([htmlContent], { type: 'text/html' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `SecureSphere_Certificate_${document.getElementById('certId').textContent}.html`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+      // Generate PDF
+      html2pdf().set(opt).from(clone).save();
     }
 
     function printCertificate() {
