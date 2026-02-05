@@ -1262,13 +1262,24 @@
       const actions = clone.querySelector('.cert-actions');
       if (actions) actions.remove();
 
-      // PDF options
+      // PDF options - optimized for single page
       const opt = {
-        margin: 10,
+        margin: [5, 5, 5, 5],
         filename: `SecureSphere_Certificate_${certId}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+        image: { type: 'jpeg', quality: 0.95 },
+        html2canvas: {
+          scale: 1.5,
+          useCORS: true,
+          letterRendering: true,
+          logging: false
+        },
+        jsPDF: {
+          unit: 'mm',
+          format: 'a4',
+          orientation: 'landscape',
+          compress: true
+        },
+        pagebreak: { mode: 'avoid-all' }
       };
 
       // Generate PDF
