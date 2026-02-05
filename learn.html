@@ -481,6 +481,8 @@
       backdrop-filter: blur(10px);
       z-index: 1001;
       animation: fadeIn 0.3s ease;
+      overflow-y: auto;
+      padding: 20px;
     }
 
     .certificate-modal.active {
@@ -490,41 +492,147 @@
     }
 
     .certificate-content {
-      background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
-      padding: 60px;
-      border-radius: 20px;
-      border: 8px solid #22d3ee;
-      max-width: 700px;
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+      padding: 50px 60px;
+      border-radius: 16px;
+      border: 12px double #22d3ee;
+      max-width: 850px;
+      width: 100%;
       text-align: center;
       position: relative;
-      box-shadow: 0 20px 60px rgba(34, 211, 238, 0.3);
+      box-shadow: 0 25px 80px rgba(34, 211, 238, 0.4), inset 0 0 60px rgba(34, 211, 238, 0.05);
+    }
+
+    /* Certificate Corner Ornaments */
+    .certificate-content::before,
+    .certificate-content::after {
+      content: '';
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      border: 3px solid #22d3ee;
+    }
+
+    .certificate-content::before {
+      top: 20px;
+      left: 20px;
+      border-right: none;
+      border-bottom: none;
+    }
+
+    .certificate-content::after {
+      bottom: 20px;
+      right: 20px;
+      border-left: none;
+      border-top: none;
+    }
+
+    .cert-logo {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 20px;
+      filter: drop-shadow(0 4px 12px rgba(34, 211, 238, 0.3));
+    }
+
+    .cert-header {
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid rgba(34, 211, 238, 0.2);
+    }
+
+    .cert-org-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #22d3ee 0%, #3b82f6 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
     }
 
     .certificate-content h2 {
       color: #020617;
-      font-size: 36px;
-      margin-bottom: 20px;
+      font-size: 28px;
+      margin-bottom: 30px;
       font-family: 'Orbitron', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .cert-text {
+      color: #475569;
+      font-size: 18px;
+      margin: 15px 0;
+      line-height: 1.6;
     }
 
     .certificate-content .cert-name {
-      color: #22d3ee;
-      font-size: 28px;
+      color: #020617;
+      font-size: 36px;
       font-weight: 700;
+      margin: 25px 0;
+      padding: 15px 30px;
+      background: linear-gradient(135deg, rgba(34, 211, 238, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+      border-radius: 8px;
+      border: 2px solid rgba(34, 211, 238, 0.3);
+    }
+
+    .cert-module {
+      color: #22d3ee;
+      font-size: 24px;
+      font-weight: 600;
       margin: 20px 0;
     }
 
-    .certificate-content p {
-      color: #334155;
-      font-size: 16px;
-      line-height: 1.8;
-      margin: 10px 0;
+    .cert-footer {
+      margin-top: 40px;
+      padding-top: 30px;
+      border-top: 2px solid rgba(34, 211, 238, 0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .cert-date,
+    .cert-id {
+      color: #64748b;
+      font-size: 14px;
+      font-weight: 500;
     }
 
     .cert-id {
-      font-size: 12px;
-      color: #64748b;
+      font-family: 'Courier New', monospace;
+      background: rgba(34, 211, 238, 0.1);
+      padding: 8px 16px;
+      border-radius: 6px;
+      border: 1px solid rgba(34, 211, 238, 0.2);
+    }
+
+    .cert-seal {
+      position: absolute;
+      bottom: 30px;
+      right: 60px;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #22d3ee 0%, #3b82f6 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      box-shadow: 0 4px 15px rgba(34, 211, 238, 0.4);
+    }
+
+    .cert-actions {
       margin-top: 30px;
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
     }
 
     /* Footer */
@@ -707,15 +815,34 @@
 
   <!-- CERTIFICATE MODAL -->
   <div id="certificateModal" class="certificate-modal">
-    <div class="certificate-content">
-      <h2>🏆 Certificate of Completion</h2>
-      <p>This certifies that</p>
+    <div class="certificate-content" id="certificateContent">
+      <img
+        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cdefs%3E%3ClinearGradient id='grad1' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%2322d3ee;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%233b82f6;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='100' cy='100' r='95' fill='url(%23grad1)' opacity='0.1'/%3E%3Cpath d='M100 30 L130 60 L170 60 L140 90 L150 130 L100 110 L50 130 L60 90 L30 60 L70 60 Z' fill='url(%23grad1)' stroke='%2322d3ee' stroke-width='3'/%3E%3Ccircle cx='100' cy='100' r='25' fill='%23020617'/%3E%3Cpath d='M100 85 L100 95 M95 100 L105 100' stroke='%2322d3ee' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M85 95 Q85 85 95 85 L105 85 Q115 85 115 95 L115 105 Q115 115 105 115 L95 115 Q85 115 85 105 Z' fill='none' stroke='%2322d3ee' stroke-width='2'/%3E%3C/svg%3E"
+        class="cert-logo" alt="SecureSphere Logo">
+
+      <div class="cert-header">
+        <div class="cert-org-name">SecureSphere</div>
+        <h2>Certificate of Completion</h2>
+      </div>
+
+      <p class="cert-text">This is to certify that</p>
       <div class="cert-name" id="certName">Student Name</div>
-      <p>has successfully completed the module</p>
-      <div class="cert-name" id="certModule" style="font-size: 22px;">Module Title</div>
-      <p id="certDate" style="margin-top: 20px;">Date: </p>
-      <p class="cert-id" id="certId">Certificate ID: </p>
-      <button class="action-btn" onclick="closeCertificate()" style="margin-top: 30px;">Close</button>
+      <p class="cert-text">has successfully completed the cybersecurity training module</p>
+      <div class="cert-module" id="certModule">Module Title</div>
+      <p class="cert-text">demonstrating proficiency in the subject matter with a passing score</p>
+
+      <div class="cert-footer">
+        <div class="cert-date" id="certDate">Date: </div>
+        <div class="cert-id" id="certId">Certificate ID: </div>
+      </div>
+
+      <div class="cert-seal">✓</div>
+
+      <div class="cert-actions">
+        <button class="action-btn" onclick="downloadCertificate()">📥 Download Certificate</button>
+        <button class="action-btn" onclick="printCertificate()">🖨️ Print Certificate</button>
+        <button class="action-btn secondary" onclick="closeCertificate()">Close</button>
+      </div>
     </div>
   </div>
 
@@ -987,6 +1114,34 @@
       document.getElementById('quizResult').classList.remove('show', 'passed', 'failed');
     }
 
+    // Quiz answer validation with keywords
+    const QUIZ_ANSWERS = {
+      'basics': [
+        ['cyber', 'security', 'defense', 'protection', 'information'],
+        ['data', 'reputation', 'compliance', 'business', 'continuity']
+      ],
+      'attacks': [
+        ['threat', 'attack', 'malicious', 'breach', 'virus'],
+        ['malware', 'phishing', 'ransomware', 'mitm', 'middle']
+      ],
+      'iam': [
+        ['identity', 'access', 'management', 'iam', 'authentication'],
+        ['authentication', 'authorization', 'privilege', 'rbac', 'role']
+      ],
+      'webapp': [
+        ['web', 'application', 'security', 'website', 'api'],
+        ['injection', 'sql', 'xss', 'authentication', 'owasp']
+      ],
+      'encryption': [
+        ['encryption', 'encode', 'cipher', 'plaintext', 'protection'],
+        ['symmetric', 'asymmetric', 'hash', 'salt', 'key']
+      ],
+      'awareness': [
+        ['awareness', 'training', 'security', 'safe', 'risk'],
+        ['password', 'mfa', 'update', 'email', 'phishing']
+      ]
+    };
+
     function submitQuiz() {
       const answers = [
         document.getElementById('answer0').value,
@@ -998,19 +1153,36 @@
         return;
       }
 
-      // Local validation: check if not empty (frontend simulation of check)
-      // In a real app, this would check against correct answers.
-      // For this simplified version, we just assume any non-empty answer is "correct" enough for the demo,
-      // or we could check for specific keywords if we wanted to be stricter.
+      // Validate answers against keywords
+      const correctAnswers = QUIZ_ANSWERS[currentModuleId];
+      let score = 0;
+      const feedback = [];
 
-      const passed = true; // Always pass if they answer something for this demo
+      answers.forEach((answer, index) => {
+        const answerLower = answer.toLowerCase();
+        const keywords = correctAnswers[index];
+        const isCorrect = keywords.some(keyword => answerLower.includes(keyword));
+
+        if (isCorrect) {
+          score++;
+          feedback.push(`✅ Question ${index + 1}: Correct`);
+        } else {
+          feedback.push(`❌ Question ${index + 1}: Incorrect - Expected keywords: ${keywords.slice(0, 3).join(', ')}`);
+        }
+      });
+
+      const percentage = (score / answers.length) * 100;
+      const passed = percentage >= 70; // 70% required to pass
 
       const resultDiv = document.getElementById('quizResult');
 
       if (passed) {
         resultDiv.innerHTML = `
           <h4>Module Completed! 🎉</h4>
-          <p>You have successfully passed the knowledge check.</p>
+          <p>You scored ${percentage.toFixed(0)}% (${score}/${answers.length} correct)</p>
+          <div style="margin-top: 15px; text-align: left;">
+            ${feedback.map(f => `<p style="margin: 5px 0;">${f}</p>`).join('')}
+          </div>
         `;
         resultDiv.classList.add('show', 'passed');
 
@@ -1029,26 +1201,139 @@
 
       } else {
         resultDiv.innerHTML = `
-          <h4>Quiz Failed</h4>
-          <p>Please review the material and try again.</p>
+          <h4>Quiz Failed ❌</h4>
+          <p>You scored ${percentage.toFixed(0)}% (${score}/${answers.length} correct)</p>
+          <p>You need at least 70% to pass. Please review the material and try again.</p>
+          <div style="margin-top: 15px; text-align: left;">
+            ${feedback.map(f => `<p style="margin: 5px 0;">${f}</p>`).join('')}
+          </div>
+          <button class="action-btn" onclick="retryQuiz()" style="margin-top: 15px;">🔄 Retry Quiz</button>
         `;
         resultDiv.classList.add('show', 'failed');
       }
     }
 
+    function retryQuiz() {
+      // Clear previous answers
+      document.getElementById('answer0').value = '';
+      document.getElementById('answer1').value = '';
+      document.getElementById('quizResult').classList.remove('show', 'passed', 'failed');
+      document.getElementById('answer0').focus();
+    }
+
     function generateCertificate() {
       const name = prompt('Enter your name for the certificate:') || 'Student';
-      const date = new Date().toLocaleDateString();
-      const certificateId = 'CERT-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+      const date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      const certificateId = 'SS-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substr(2, 4).toUpperCase();
 
       document.getElementById('certName').textContent = name;
       document.getElementById('certModule').textContent = currentModuleData.title;
-      document.getElementById('certDate').textContent = 'Date: ' + date;
-      document.getElementById('certId').textContent = 'Certificate ID: ' + certificateId;
+      document.getElementById('certDate').textContent = 'Issued: ' + date;
+      document.getElementById('certId').textContent = certificateId;
 
       document.getElementById('certificateModal').classList.add('active');
       closeModule();
       loadProgress();
+    }
+
+    function downloadCertificate() {
+      // Create a temporary link to download the certificate as HTML
+      const certificateContent = document.getElementById('certificateContent').cloneNode(true);
+
+      // Remove action buttons from the clone
+      const actions = certificateContent.querySelector('.cert-actions');
+      if (actions) actions.remove();
+
+      const htmlContent = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SecureSphere Certificate</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { 
+      font-family: 'Inter', sans-serif; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      min-height: 100vh; 
+      background: #f1f5f9;
+      padding: 20px;
+    }
+    ${document.querySelector('style').textContent}
+    .certificate-content { 
+      position: relative; 
+      margin: 0;
+    }
+    @media print {
+      body { background: white; }
+      .certificate-content { box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  ${certificateContent.outerHTML}
+</body>
+</html>
+      `;
+
+      const blob = new Blob([htmlContent], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `SecureSphere_Certificate_${document.getElementById('certId').textContent}.html`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function printCertificate() {
+      const printWindow = window.open('', '_blank');
+      const certificateContent = document.getElementById('certificateContent').cloneNode(true);
+
+      // Remove action buttons from the clone
+      const actions = certificateContent.querySelector('.cert-actions');
+      if (actions) actions.remove();
+
+      printWindow.document.write(`
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SecureSphere Certificate</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { 
+      font-family: 'Inter', sans-serif; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      min-height: 100vh; 
+      padding: 20px;
+    }
+    ${document.querySelector('style').textContent}
+    .certificate-content { margin: 0; }
+    @media print {
+      body { padding: 0; }
+      .certificate-content { box-shadow: none; page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  ${certificateContent.outerHTML}
+</body>
+</html>
+      `);
+      printWindow.document.close();
+
+      // Wait for content to load before printing
+      setTimeout(() => {
+        printWindow.print();
+      }, 250);
     }
 
     function closeModule() {
