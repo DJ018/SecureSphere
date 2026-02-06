@@ -585,6 +585,109 @@
       }
     }
 
+    /* ===== MOBILE NAVIGATION ===== */
+    .mobile-menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 30px;
+      height: 25px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 1001;
+      position: relative;
+    }
+
+    .mobile-menu-toggle span {
+      width: 100%;
+      height: 3px;
+      background: #22d3ee;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      transform-origin: center;
+      box-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
+    }
+
+    .mobile-menu-toggle.active span:nth-child(1) {
+      transform: translateY(11px) rotate(45deg);
+    }
+
+    .mobile-menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+
+    .mobile-menu-toggle.active span:nth-child(3) {
+      transform: translateY(-11px) rotate(-45deg);
+    }
+
+    .mobile-menu-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(5px);
+      z-index: 999;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .mobile-menu-overlay.active {
+      display: block;
+      opacity: 1;
+    }
+
+    .mobile-nav-menu {
+      display: none;
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 280px;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(2, 6, 23, 0.98));
+      backdrop-filter: blur(20px);
+      border-left: 1px solid rgba(34, 211, 238, 0.2);
+      z-index: 1000;
+      padding: 80px 30px 30px;
+      transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      overflow-y: auto;
+      box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .mobile-nav-menu.active {
+      display: block;
+      right: 0;
+    }
+
+    .mobile-nav-menu nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .mobile-nav-menu nav a {
+      padding: 18px 20px;
+      font-size: 16px;
+      border-bottom: 1px solid rgba(34, 211, 238, 0.1);
+      transition: all 0.3s ease;
+      display: block;
+      margin-left: 0;
+    }
+
+    .mobile-nav-menu nav a:hover {
+      background: rgba(34, 211, 238, 0.1);
+      padding-left: 30px;
+    }
+
+    .mobile-nav-menu nav a::after {
+      display: none;
+    }
+
     /* ===== RESPONSIVE DESIGN ===== */
     @media (max-width: 1200px) {
       .service-grid {
@@ -601,27 +704,30 @@
     }
 
     @media (max-width: 768px) {
+
+      /* Show mobile menu toggle, hide desktop nav */
+      .mobile-menu-toggle {
+        display: flex;
+      }
+
       .navbar {
-        padding: 15px 20px;
-        flex-wrap: wrap;
+        padding: 18px 30px;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .navbar nav {
+        display: none;
+      }
+
+      /* Prevent body scroll when menu is open */
+      body.menu-open {
+        overflow: hidden;
       }
 
       .logo {
         font-size: 20px;
-      }
-
-      nav {
-        order: 3;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        margin-top: 15px;
-        flex-wrap: wrap;
-      }
-
-      nav a {
-        margin: 5px 10px;
-        font-size: 14px;
       }
 
       .page-header {
@@ -841,7 +947,29 @@
       <a href="lab.html">Labs</a>
       <a href="game.html">Games</a>
     </nav>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle mobile menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </header>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+  <!-- Mobile Navigation Menu -->
+  <div class="mobile-nav-menu" id="mobileNavMenu">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="learn.html">Learn</a>
+      <a href="services.html">Services</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="lab.html">Labs</a>
+      <a href="game.html">Games</a>
+    </nav>
+  </div>
 
   <!-- PAGE HEADER -->
   <section class="page-header">
@@ -980,7 +1108,53 @@
     window.addEventListener('DOMContentLoaded', () => {
       loadServices();
       loadTestimonials();
+      initMobileMenu();
     });
+
+    // Mobile Menu Functionality
+    function initMobileMenu() {
+      const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+      const mobileNavMenu = document.getElementById('mobileNavMenu');
+      const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+      const body = document.body;
+
+      if (!mobileMenuToggle || !mobileNavMenu || !mobileMenuOverlay) return;
+
+      function toggleMobileMenu() {
+        mobileMenuToggle.classList.toggle('active');
+        mobileNavMenu.classList.toggle('active');
+        mobileMenuOverlay.classList.toggle('active');
+        body.classList.toggle('menu-open');
+      }
+
+      mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+      mobileMenuOverlay.addEventListener('click', toggleMobileMenu);
+
+      const mobileNavLinks = mobileNavMenu.querySelectorAll('nav a');
+      mobileNavLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          if (mobileNavMenu.classList.contains('active')) {
+            toggleMobileMenu();
+          }
+        });
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobileNavMenu.classList.contains('active')) {
+          toggleMobileMenu();
+        }
+      });
+
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          if (window.innerWidth > 768 && mobileNavMenu.classList.contains('active')) {
+            toggleMobileMenu();
+          }
+        }, 250);
+      });
+    }
 
     // Switch tabs
     function switchTab(tab) {

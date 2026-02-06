@@ -8,7 +8,7 @@
 
   <!-- Google Fonts -->
   <link
-    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Inter:wght@400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Inter:wght@400;500;600;700&family=Great+Vibes&display=swap"
     rel="stylesheet">
 
   <!-- html2pdf library for PDF generation -->
@@ -684,6 +684,349 @@
         transform: rotate(360deg);
       }
     }
+
+    /* ===== MOBILE NAVIGATION ===== */
+    .mobile-menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 30px;
+      height: 25px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 1001;
+      position: relative;
+    }
+
+    .mobile-menu-toggle span {
+      width: 100%;
+      height: 3px;
+      background: #22d3ee;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      transform-origin: center;
+      box-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
+    }
+
+    .mobile-menu-toggle.active span:nth-child(1) {
+      transform: translateY(11px) rotate(45deg);
+    }
+
+    .mobile-menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+
+    .mobile-menu-toggle.active span:nth-child(3) {
+      transform: translateY(-11px) rotate(-45deg);
+    }
+
+    .mobile-menu-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(5px);
+      z-index: 999;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .mobile-menu-overlay.active {
+      display: block;
+      opacity: 1;
+    }
+
+    .mobile-nav-menu {
+      display: none;
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 280px;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(2, 6, 23, 0.98));
+      backdrop-filter: blur(20px);
+      border-left: 1px solid rgba(34, 211, 238, 0.2);
+      z-index: 1000;
+      padding: 80px 30px 30px;
+      transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      overflow-y: auto;
+      box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .mobile-nav-menu.active {
+      display: block;
+      right: 0;
+    }
+
+    .mobile-nav-menu nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .mobile-nav-menu nav a {
+      padding: 18px 20px;
+      font-size: 16px;
+      border-bottom: 1px solid rgba(34, 211, 238, 0.1);
+      transition: all 0.3s ease;
+      display: block;
+    }
+
+    .mobile-nav-menu nav a:hover {
+      background: rgba(34, 211, 238, 0.1);
+      padding-left: 30px;
+    }
+
+    .mobile-nav-menu nav a::after {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .mobile-menu-toggle {
+        display: flex;
+      }
+
+      .navbar {
+        padding: 18px 30px;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .navbar nav {
+        display: none;
+      }
+
+      body.menu-open {
+        overflow: hidden;
+      }
+    }
+
+    /* ===== CERTIFICATE MODAL ===== */
+    .certificate-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(10px);
+      z-index: 2000;
+      overflow-y: auto;
+      padding: 40px 20px;
+    }
+
+    .certificate-modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .certificate-content {
+      background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+      max-width: 900px;
+      width: 100%;
+      padding: 60px;
+      border-radius: 20px;
+      border: 8px solid #22d3ee;
+      box-shadow: 0 20px 60px rgba(34, 211, 238, 0.3);
+      position: relative;
+      text-align: center;
+      color: #1e293b;
+    }
+
+    .cert-logo {
+      width: 120px;
+      height: auto;
+      margin: 0 auto 30px;
+      display: block;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+    }
+
+    .cert-header {
+      margin-bottom: 40px;
+    }
+
+    .cert-org-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #22d3ee, #0ea5e9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 15px;
+    }
+
+    .cert-header h2 {
+      font-size: 36px;
+      font-weight: 700;
+      color: #0f172a;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin: 0;
+    }
+
+    .cert-text {
+      font-size: 18px;
+      color: #475569;
+      margin: 15px 0;
+      line-height: 1.6;
+    }
+
+    .cert-name {
+      font-size: 42px;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 25px 0;
+      padding: 20px 40px;
+      background: linear-gradient(135deg, rgba(34, 211, 238, 0.1), rgba(14, 165, 233, 0.1));
+      border-radius: 12px;
+      border: 2px solid #22d3ee;
+    }
+
+    .cert-module {
+      font-size: 28px;
+      font-weight: 600;
+      color: #0ea5e9;
+      margin: 25px 0;
+    }
+
+    .cert-footer {
+      display: flex;
+      justify-content: space-between;
+      margin: 40px 0;
+      padding: 20px 0;
+      border-top: 2px solid #e2e8f0;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    .cert-date,
+    .cert-id {
+      font-size: 14px;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    .cert-authority {
+      margin: 40px auto 30px;
+      max-width: 400px;
+    }
+
+    .cert-signature-line {
+      width: 100%;
+      height: 2px;
+      background: #1e293b;
+      margin-bottom: 15px;
+    }
+
+    .cert-signature-name {
+      font-family: 'Great Vibes', cursive;
+      font-size: 48px;
+      color: #0f172a;
+      margin: 10px 0;
+      font-weight: 400;
+      line-height: 1.2;
+    }
+
+    .cert-authority-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #475569;
+      margin: 8px 0;
+    }
+
+    .cert-authority-text {
+      font-size: 14px;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    .cert-actions {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+
+    .cert-actions .action-btn {
+      min-width: 200px;
+    }
+
+    /* Certificate corner ornaments */
+    .certificate-content::before,
+    .certificate-content::after {
+      content: '';
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      border: 3px solid #22d3ee;
+    }
+
+    .certificate-content::before {
+      top: 20px;
+      left: 20px;
+      border-right: none;
+      border-bottom: none;
+    }
+
+    .certificate-content::after {
+      bottom: 20px;
+      right: 20px;
+      border-left: none;
+      border-top: none;
+    }
+
+    /* Mobile responsiveness for certificate */
+    @media (max-width: 768px) {
+      .certificate-content {
+        padding: 40px 30px;
+        border-width: 4px;
+      }
+
+      .cert-header h2 {
+        font-size: 28px;
+      }
+
+      .cert-org-name {
+        font-size: 24px;
+      }
+
+      .cert-name {
+        font-size: 32px;
+        padding: 15px 25px;
+      }
+
+      .cert-module {
+        font-size: 22px;
+      }
+
+      .cert-signature-name {
+        font-size: 38px;
+      }
+
+      .cert-footer {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+      }
+
+      .cert-actions {
+        flex-direction: column;
+      }
+
+      .cert-actions .action-btn {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 
@@ -700,7 +1043,26 @@
       <a href="lab.html">Labs</a>
       <a href="game.html">Games</a>
     </nav>
+
+    <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle mobile menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </header>
+
+  <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+  <div class="mobile-nav-menu" id="mobileNavMenu">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="learn.html">Learn</a>
+      <a href="services.html">Services</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="lab.html">Labs</a>
+      <a href="game.html">Games</a>
+    </nav>
+  </div>
 
   <!-- PAGE HEADER -->
   <section class="page-header">
@@ -850,8 +1212,9 @@
 
       <div class="cert-authority">
         <div class="cert-signature-line"></div>
-        <div class="cert-authority-text">Certified by SecureSphere Academy</div>
-        <div class="cert-authority-title">Director of Cybersecurity Education</div>
+        <div class="cert-signature-name">Devesh Jain</div>
+        <div class="cert-authority-title">Founder & CEO</div>
+        <div class="cert-authority-text">SecureSphere</div>
       </div>
 
       <div class="cert-actions">
@@ -1343,11 +1706,61 @@
       document.getElementById('certificateModal').classList.remove('active');
     }
 
+    // Mobile Menu Functionality
+    (function initMobileMenu() {
+      const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+      const mobileNavMenu = document.getElementById('mobileNavMenu');
+      const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+      const body = document.body;
+
+      if (!mobileMenuToggle || !mobileNavMenu || !mobileMenuOverlay) return;
+
+      function toggleMobileMenu() {
+        mobileMenuToggle.classList.toggle('active');
+        mobileNavMenu.classList.toggle('active');
+        mobileMenuOverlay.classList.toggle('active');
+        body.classList.toggle('menu-open');
+      }
+
+      mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+      mobileMenuOverlay.addEventListener('click', toggleMobileMenu);
+
+      const mobileNavLinks = mobileNavMenu.querySelectorAll('nav a');
+      mobileNavLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          if (mobileNavMenu.classList.contains('active')) {
+            toggleMobileMenu();
+          }
+        });
+      });
+
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          if (window.innerWidth > 768 && mobileNavMenu.classList.contains('active')) {
+            toggleMobileMenu();
+          }
+        }, 250);
+      });
+    })();
+
     // Close modals on Escape key
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') {
         closeModule();
         closeCertificate();
+
+        // Close mobile menu on Escape
+        const mobileNavMenu = document.getElementById('mobileNavMenu');
+        if (mobileNavMenu && mobileNavMenu.classList.contains('active')) {
+          const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+          const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+          mobileMenuToggle.classList.remove('active');
+          mobileNavMenu.classList.remove('active');
+          mobileMenuOverlay.classList.remove('active');
+          document.body.classList.remove('menu-open');
+        }
       }
     });
   </script>

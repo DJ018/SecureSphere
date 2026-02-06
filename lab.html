@@ -326,6 +326,129 @@
             transform: rotate(90deg);
         }
 
+        /* ===== MOBILE NAVIGATION ===== */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 25px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1001;
+            position: relative;
+        }
+
+        .mobile-menu-toggle span {
+            width: 100%;
+            height: 3px;
+            background: #22d3ee;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            transform-origin: center;
+            box-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: translateY(11px) rotate(45deg);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: translateY(-11px) rotate(-45deg);
+        }
+
+        .mobile-menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-menu-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .mobile-nav-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(2, 6, 23, 0.98));
+            backdrop-filter: blur(20px);
+            border-left: 1px solid rgba(34, 211, 238, 0.2);
+            z-index: 1000;
+            padding: 80px 30px 30px;
+            transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            overflow-y: auto;
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .mobile-nav-menu.active {
+            display: block;
+            right: 0;
+        }
+
+        .mobile-nav-menu nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .mobile-nav-menu nav a {
+            padding: 18px 20px;
+            font-size: 16px;
+            border-bottom: 1px solid rgba(34, 211, 238, 0.1);
+            transition: all 0.3s ease;
+            display: block;
+        }
+
+        .mobile-nav-menu nav a:hover {
+            background: rgba(34, 211, 238, 0.1);
+            padding-left: 30px;
+        }
+
+        .mobile-nav-menu nav a::after {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .navbar {
+                padding: 18px 30px;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .navbar nav {
+                display: none;
+            }
+
+            body.menu-open {
+                overflow: hidden;
+            }
+        }
+
         .workspace-header {
             margin-bottom: 30px;
             padding-bottom: 20px;
@@ -644,12 +767,10 @@
 
 <body>
 
-    <div class="navbar">
-        <div class="logo">
-            <span class="logo-icon">🛡️</span>
-            <span class="logo-text">SecureSphere</span>
-        </div>
-        <nav class="nav-links">
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="logo">SecureSphere</div>
+        <nav>
             <a href="index.html">Home</a>
             <a href="learn.html">Learn</a>
             <a href="services.html">Services</a>
@@ -657,10 +778,30 @@
             <a href="lab.html">Labs</a>
             <a href="game.html">Games</a>
         </nav>
+
         <button class="cta-btn" onclick="window.location.href='index.html#contact'">
             <span>Get Started</span>
             <span class="btn-arrow">→</span>
         </button>
+
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle mobile menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+    <div class="mobile-nav-menu" id="mobileNavMenu">
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="learn.html">Learn</a>
+            <a href="services.html">Services</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="lab.html">Labs</a>
+            <a href="game.html">Games</a>
+        </nav>
     </div>
 
     <div class="container">
@@ -1068,9 +1209,61 @@
             }
         }
 
+        // Mobile Menu Functionality
+        (function initMobileMenu() {
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const mobileNavMenu = document.getElementById('mobileNavMenu');
+            const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+            const body = document.body;
+
+            if (!mobileMenuToggle || !mobileNavMenu || !mobileMenuOverlay) return;
+
+            function toggleMobileMenu() {
+                mobileMenuToggle.classList.toggle('active');
+                mobileNavMenu.classList.toggle('active');
+                mobileMenuOverlay.classList.toggle('active');
+                body.classList.toggle('menu-open');
+            }
+
+            mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+            mobileMenuOverlay.addEventListener('click', toggleMobileMenu);
+
+            const mobileNavLinks = mobileNavMenu.querySelectorAll('nav a');
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (mobileNavMenu.classList.contains('active')) {
+                        toggleMobileMenu();
+                    }
+                });
+            });
+
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    if (window.innerWidth > 768 && mobileNavMenu.classList.contains('active')) {
+                        toggleMobileMenu();
+                    }
+                }, 250);
+            });
+        })();
+
         // Close workspace on Escape key
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') {
+                // Close mobile menu if open
+                const mobileNavMenu = document.getElementById('mobileNavMenu');
+                if (mobileNavMenu && mobileNavMenu.classList.contains('active')) {
+                    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+                    const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+                    mobileMenuToggle.classList.remove('active');
+                    mobileNavMenu.classList.remove('active');
+                    mobileMenuOverlay.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                    return;
+                }
+
+                // Close workspace
                 const activeWorkspace = document.querySelector('.lab-workspace.active');
                 if (activeWorkspace) {
                     const labType = activeWorkspace.id.replace('-workspace', '');
